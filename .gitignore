@@ -1,0 +1,6 @@
+db_config.json
+__pycache__/
+*.pyc
+.env
+.vscode/
+.idea/

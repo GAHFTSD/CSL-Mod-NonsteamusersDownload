@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>城市天际线模组统计预测平台</title>
+    <!-- Bootstrap 5 CSS + JS (with Popper) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js">
+    </script>
+    <style>
+        /* ===== 全局 ===== */
+        body {
+            background: #f4f6f9;
+            padding: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .stat-card.small {
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        .stat-card.small h5 {
+            font-size: 0.9rem;
+            margin-bottom: 2px;
+        }
+
+        .stat-card.small p {
+            font-size: 1.2rem;
+            margin-bottom: 0;
+        }
+
+        .stat-card .fs-2 {
+            transition: font-size 0.3s;
+        }
+        .stat-card.small .fs-2 {
+            font-size: 1.5rem;
+        }
+
+        .table-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        h5 {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        /* ===== ★ 扩大模组图片显示 ===== */
+        .popover {
+            max-width: 700px; /* 放宽 popover 宽度 */
+        }
+        .popover-img {
+            max-width: 600px;   /* 原 200px，扩大至 600px */
+            max-height: 450px;  /* 原 150px，扩大至 450px */
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* ===== 粘性顶部统计卡片 ===== */
+        #statsRow {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #f4f6f9;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            transition: all 0.3s;
+        }
+
+        #statsRow.shrink .stat-card {
+            padding: 6px 10px;
+        }
+        #statsRow.shrink .stat-card h5 {
+            font-size: 0.8rem;
+            margin-bottom: 0;
+        }
+        #statsRow.shrink .stat-card p {
+            font-size: 1.1rem;
+            margin-bottom: 0;
+        }
+        #statsRow.shrink .fs-2 {
+            font-size: 1.3rem;
+        }
+
+        /* ===== 图表容器 ===== */
+        .chart-container {
+            position: relative;
+            height: 220px;
+        }
+
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 160px;
+            }
+        }
+
+        /* ===== 使用说明 ===== */
+        .usage-banner {
+            background: linear-gradient(135deg, #e8f0fe 0%, #d4e4f7 100%);
+            border-left: 6px solid #1a73e8;
+            border-radius: 12px;
+            padding: 14px 22px;
+            margin-top: 8px;
+            margin-bottom: 22px;
+            box-shadow: 0 2px 12px rgba(26, 115, 232, 0.10);
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .usage-banner .icon {
+            font-size: 1.6rem;
+            line-height: 1.2;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .usage-banner .text {
+            flex: 1;
+            font-size: 0.95rem;
+            color: #1e2a3a;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .usage-banner .text strong {
+            color: #0d47a1;
+        }
+
+        .usage-banner .text .highlight {
+            background: #ffecb3;
+            padding: 0 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #bf360c;
+        }
+
+        /* ===== Footer ===== */
+        .footer-container {
+            position: relative;
+            width: 100%;
+            margin-top: 40px;
+            padding: 0 15px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            pointer-events: none;
+            visibility: hidden;
+        }
+
+        .footer-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            visibility: visible;
+        }
+
+        .footer-inner {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            border-radius: 16px 16px 0 0;
+            padding: 30px 35px;
+            box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.2);
+            border-top: 4px solid #f39c12;
+            color: #e8e8e8;
+        }
+
+        /* ===== 免责声明横幅 ===== */
+        .disclaimer-banner {
+            background: #fff3cd;
+            border-left: 6px solid #ff6b6b;
+            border-right: 6px solid #ff6b6b;
+            border-radius: 10px;
+            padding: 18px 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 0 2px #ff6b6b44, 0 4px 20px rgba(255, 107, 107, 0.15);
+            animation: pulse-border 2.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-border {
+            0%,
+            100% {
+                box-shadow: 0 0 0 2px #ff6b6b44, 0 4px 20px rgba(255, 107, 107, 0.15);
+            }
+            50% {
+                box-shadow: 0 0 0 4px #ff6b6b88, 0 4px 30px rgba(255, 107, 107, 0.3);
+            }
+        }
+
+        .disclaimer-banner .title {
+            font-weight: 700;
+            color: #d63031;
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .disclaimer-banner .title::before {
+            content: "⚠️";
+            font-size: 1.4rem;
+        }
+
+        .disclaimer-banner .text {
+            color: #5a3e1b;
+            font-size: 0.92rem;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .disclaimer-banner .text strong {
+            color: #c0392b;
+        }
+        .disclaimer-banner .text a {
+            color: #2d3436;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        /* ===== 个人信息行 ===== */
+        .footer-info {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .footer-info .author {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-info .author .name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #f1c40f;
+        }
+
+        .footer-info .author .label {
+            color: #b0b0b0;
+            font-size: 0.85rem;
+        }
+
+        .footer-info .links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .footer-info .links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-info .links a:hover {
+            color: #f1c40f;
+        }
+
+        .footer-info .links a .icon {
+            font-size: 1.2rem;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 768px) {
+            .footer-inner {
+                padding: 20px;
+            }
+            .disclaimer-banner {
+                padding: 14px 18px;
+            }
+            .disclaimer-banner .text {
+                font-size: 0.82rem;
+            }
+            .footer-info {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+            .footer-info .author {
+                justify-content: center;
+            }
+            .footer-info .links {
+                justify-content: center;
+            }
+            .usage-banner {
+                padding: 12px 16px;
+                flex-direction: column;
+                gap: 6px;
+            }
+            .usage-banner .icon {
+                font-size: 1.4rem;
+            }
+            .usage-banner .text {
+                font-size: 0.88rem;
+            }
+            /* 移动端 popover 图片适当缩小 */
+            .popover {
+                max-width: 90vw;
+            }
+            .popover-img {
+                max-width: 80vw;
+                max-height: 60vh;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid">
+
+        <!-- ===== 标题 ===== -->
+        <h1 class="mb-1">📊 Cities: Skylines 下载列表</h1>
+
+        <!-- ===== 使用说明 ===== -->
+        <div class="usage-banner">
+            <span class="icon">📌</span>
+            <p class="text">
+                <strong>使用说明：</strong>
+                此网站旨在服务 <strong>EPIC</strong> 端 <em>Cities: Skylines</em>
+                及 <span class="highlight">学习版</span> 用户下载模组。
+                本网站仅供 <strong>学习研究和技术交流</strong> 使用，
+                <strong style="color:#c0392b;">禁止用于任何商业用途</strong>。
+            </p>
+        </div>
+
+        <!-- ===== 统计卡片（粘性顶部） ===== -->
+        <div class="row mb-3" id="statsRow">
+            <div class="col-md-4">
+                <div class="stat-card"><h5>📦 总模组</h5><p id="totalCount" class="fs-2 fw-bold">-</p></div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card"><h5>📂 类别数</h5><p id="catCount" class="fs-2 fw-bold">-</p></div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card"><h5>🕒 最新上传</h5><p id="latestDate" class="fs-2 fw-bold">-</p></div>
+            </div>
+        </div>
+
+        <!-- ===== 第一行：趋势+预测图 ===== -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="stat-card">
+                    <h5>📈 年度发布趋势</h5>
+                    <p class="text-muted small">实线 = 历史数据，虚线 = 线性回归外推预测（斜率正=增长，负=衰退）</p>
+                    <div class="chart-container"><canvas id="trendForecastChart"></canvas></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 第二行：文件大小分布 + 更新活跃度 ===== -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="stat-card">
+                    <h5>📦 文件大小分布</h5>
+                    <div class="chart-container"><canvas id="histChart"></canvas></div>
+                    <div id="histExtra" class="text-muted small mt-1"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="stat-card">
+                    <h5>⏳ 更新活跃度</h5>
+                    <p class="text-muted small">越短 = 维护越频繁</p>
+                    <div class="chart-container"><canvas id="activityChart"></canvas></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 筛选与表格 ===== -->
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <select id="categoryFilter" class="form-select">
+                    <!-- 由JS动态生成 -->
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input type="text" id="searchInput" class="form-control" placeholder="搜索模组名称..." />
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="table table-hover" id="modTable">
+                <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>类别</th>
+                        <th>大小 (MB)</th>
+                        <th>上传日期</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+            <div id="pagination" class="d-flex justify-content-between align-items-center mt-3">
+                <span id="infoText"></span>
+                <div>
+                    <button class="btn btn-sm btn-outline-secondary" id="prevBtn">上一页</button>
+                    <button class="btn btn-sm btn-outline-secondary" id="nextBtn">下一页</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+    <!-- ===== Footer ===== -->
+    <div class="footer-container" id="footerContainer">
+        <div class="footer-inner">
+            <div class="disclaimer-banner">
+                <div class="title">免责声明 &amp; 致歉</div>
+                <p class="text">
+                    <strong>本网站仅供学习研究和技术交流使用，</strong> 禁止用于任何商业用途。
+                    数据采集过程中对 <a href="https://smods.ru" target="_blank">smods.ru</a> 网站造成了额外的服务器负担，
+                    对模组创作者带来了影响，
+                    <strong>我深表歉意</strong>。
+                    如侵犯了您的权益，请通过下方联系方式通知我，<strong>我将立即删除相关数据</strong>。
+                    使用本网站即表示您已阅读并同意
+                    <a href="#" id="disclaimerToggle" style="color:#c0392b; font-weight:700;" onclick="alert('完整免责声明请参考项目 README.md 或联系作者获取。'); return false;">完整免责声明</a>。
+                </p>
+            </div>
+
+            <div class="footer-info">
+                <div class="author">
+                    <span class="name">👤 Airlin Neleftari Prismriver(GAHFTSD)</span>
+                    <span class="label">|</span>
+                    <span class="label">📧 <a href="mailto:gahftsd@hotmail.com" style="color:#b0b0b0; text-decoration:none;">gahftsd@hotmail.com</a></span>
+                </div>
+                <div class="links">
+                    <a href="https://space.bilibili.com/104341778" target="_blank">
+                        <span class="icon">📺</span> B站主页
+                    </a>
+                    <a href="https://steamcommunity.com/id/GAHFTSD/" target="_blank">
+                        <span class="icon">🎮</span> Steam主页
+                    </a>
+                    <a href="https://xiaoheihe.cn/app/user/profile/49405634" target="_blank">
+                        <span class="icon">⚫</span> 小黑盒主页
+                    </a>
+                    <a href="#" onclick="alert('项目源码：https://github.com/GAHFTSD/CSL-Mod-NonsteamusersDownload'); return false;">
+                        <span class="icon">💻</span> GitHub
+                    </a>
+                    <span style="color:#555; font-size:0.8rem;">
+                        2024-2026 Airlin Neleftari Prismriver (GAHFTSD).
+                        网站部分由AI参与制作
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- JavaScript -->
+    <!-- ============================================================ -->
+    <script>
+        // ===== 滚动检测：Footer 显隐 =====
+        function checkFooterVisibility() {
+            const footer = document.getElementById('footerContainer');
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const threshold = 100;
+            const isNearBottom = (scrollY + windowHeight) >= (documentHeight - threshold);
+
+            if (isNearBottom) {
+                footer.classList.add('visible');
+            } else {
+                footer.classList.remove('visible');
+            }
+        }
+
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    checkFooterVisibility();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        window.addEventListener('load', function() {
+            setTimeout(checkFooterVisibility, 300);
+        });
+
+        window.addEventListener('resize', function() {
+            checkFooterVisibility();
+        });
+
+        // ===== 全局变量 =====
+        let currentCategory = '建筑';
+        let currentSearch = '';
+        let currentOffset = 0;
+        const limit = 20;
+        let totalItems = 0;
+        let chartInstances = {};
+
+        function destroyChart(id) {
+            if (chartInstances[id]) {
+                chartInstances[id].destroy();
+                delete chartInstances[id];
+            }
+        }
+
+        // ===== 滚动缩小统计卡片 =====
+        window.addEventListener('scroll', function() {
+            const row = document.getElementById('statsRow');
+            if (window.scrollY > 60) {
+                row.classList.add('shrink');
+            } else {
+                row.classList.remove('shrink');
+            }
+        });
+
+        // ===== 滚动到表格标题（为粘性卡片预留空间） =====
+        function scrollToTable() {
+            const tableContainer = document.querySelector('.table-container');
+            const statsRow = document.getElementById('statsRow');
+            if (!tableContainer) return;
+            const statsHeight = statsRow ? statsRow.offsetHeight : 0;
+            const rect = tableContainer.getBoundingClientRect();
+            const targetScrollY = rect.top + window.scrollY - statsHeight - 5;
+            window.scrollTo({
+                top: Math.max(0, targetScrollY),
+                behavior: 'smooth'
+            });
+        }
+
+        // ===== 1. 统计卡片 =====
+        async function fetchStats() {
+            const res = await fetch('/api/stats');
+            const stats = await res.json();
+            document.getElementById('totalCount').innerText = stats.total;
+            document.getElementById('catCount').innerText = Object.keys(stats.categories).length;
+            document.getElementById('latestDate').innerText = stats.latest || '-';
+
+            const sel = document.getElementById('categoryFilter');
+            sel.innerHTML = '';
+            for (const [cat, count] of Object.entries(stats.categories)) {
+                const opt = document.createElement('option');
+                opt.value = cat;
+                opt.textContent = `${cat} (${count})`;
+                if (cat === currentCategory) opt.selected = true;
+                sel.appendChild(opt);
+            }
+            if (!sel.querySelector(`option[value="${currentCategory}"]`)) {
+                currentCategory = sel.options[0]?.value || '';
+                if (sel.options[0]) sel.options[0].selected = true;
+            }
+        }
+
+        // ===== 2. 表格 =====
+        async function fetchTable() {
+            const url =
+                `/api/mods?offset=${currentOffset}&limit=${limit}&category=${encodeURIComponent(currentCategory)}&search=${encodeURIComponent(currentSearch)}`;
+            const res = await fetch(url);
+            const json = await res.json();
+            totalItems = json.total;
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+            json.data.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                            <td>
+                                <span class="mod-name"
+                                      data-bs-toggle="popover"
+                                      data-bs-html="true"
+                                      data-bs-content='<img src="${row.image || ''}" class="popover-img" alt="模组图片">'
+                                      data-bs-placement="right"
+                                      style="cursor:pointer; text-decoration:underline; color:#0d6efd;">
+                                    ${row.name}
+                                </span>
+                            </td>
+                            <td>${row.category}</td>
+                            <td>${row.size_mb ? row.size_mb.toFixed(2) : '-'}</td>
+                            <td>${row.published || '-'}</td>
+                            <td>
+                                <a href="${row.steam}" target="_blank" class="btn btn-sm btn-outline-primary">Steam</a>
+                                ${row.download ? `<a href="${row.download}" target="_blank" class="btn btn-sm btn-outline-success">下载</a>` : ''}
+                            </td>
+                        `;
+                tbody.appendChild(tr);
+            });
+
+            const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+            popoverTriggerList.map(function(el) {
+                return new bootstrap.Popover(el, {
+                    trigger: 'hover focus',
+                    html: true,
+                    sanitize: false
+                });
+            });
+
+            document.getElementById('infoText').innerText =
+                `显示 ${currentOffset+1} - ${Math.min(currentOffset+limit, totalItems)} / 共 ${totalItems} 条`;
+            document.getElementById('prevBtn').disabled = currentOffset === 0;
+            document.getElementById('nextBtn').disabled = currentOffset + limit >= totalItems;
+        }
+
+        // ===== 3. 趋势+预测图 =====
+        async function loadTrendForecast() {
+            const [trendRes, forecastRes] = await Promise.all([
+                fetch('/api/trend'),
+                fetch('/api/forecast')
+            ]);
+            const trendData = await trendRes.json();
+            const forecastData = await forecastRes.json();
+
+            let allYears = new Set();
+            trendData.labels.forEach(y => allYears.add(y));
+            Object.keys(forecastData).forEach(cat => {
+                Object.keys(forecastData[cat].forecast).forEach(y => allYears.add(parseInt(y)));
+            });
+            const sortedYears = Array.from(allYears).sort((a, b) => a - b);
+            const forecastYear = Math.max(...sortedYears);
+
+            const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#C9CBCF'];
+
+            const datasets = [];
+            const categories = trendData.datasets.map(d => d.label);
+
+            categories.forEach((cat, idx) => {
+                const trendCat = trendData.datasets.find(d => d.label === cat);
+                const forecastCat = forecastData[cat];
+                const color = colors[idx % colors.length];
+
+                const histData = sortedYears.map((y, i) => {
+                    const yearIndex = trendData.labels.indexOf(y);
+                    if (yearIndex !== -1 && trendCat) {
+                        return trendCat.data[yearIndex];
+                    }
+                    return null;
+                });
+
+                datasets.push({
+                    label: `${cat} (历史)`,
+                    data: histData,
+                    borderColor: color,
+                    backgroundColor: color,
+                    borderWidth: 2,
+                    fill: false,
+                    tension: 0.2,
+                    pointRadius: 3,
+                    pointBackgroundColor: color,
+                    spanGaps: false
+                });
+
+                const lastHistYear = sortedYears.filter(y => {
+                    const idx = trendData.labels.indexOf(y);
+                    return idx !== -1 && trendCat && trendCat.data[idx] !== null && trendCat.data[idx] !== 0;
+                }).pop();
+
+                if (lastHistYear && forecastCat) {
+                    const lastHistVal = trendCat.data[trendData.labels.indexOf(lastHistYear)];
+                    const predVal = forecastCat.forecast[forecastYear];
+
+                    const dashedData = sortedYears.map(y => {
+                        if (y === lastHistYear) return lastHistVal;
+                        if (y === forecastYear && forecastCat.forecast[y] !== undefined) return forecastCat
+                            .forecast[y];
+                        return null;
+                    });
+
+                    datasets.push({
+                        label: `${cat} (预测 斜率${forecastCat.slope})`,
+                        data: dashedData,
+                        borderColor: color,
+                        backgroundColor: 'transparent',
+                        borderWidth: 2,
+                        borderDash: [6, 4],
+                        fill: false,
+                        tension: 0.2,
+                        pointRadius: 0,
+                        spanGaps: false
+                    });
+
+                    const pointData = sortedYears.map(y => {
+                        if (y === forecastYear && forecastCat.forecast[y] !== undefined) {
+                            return forecastCat.forecast[y];
+                        }
+                        return null;
+                    });
+                    datasets.push({
+                        label: `${cat} (预测值)`,
+                        data: pointData,
+                        borderColor: color,
+                        backgroundColor: color,
+                        pointRadius: 6,
+                        pointStyle: 'rectRot',
+                        showLine: false,
+                        borderWidth: 0
+                    });
+                }
+            });
+
+            destroyChart('trendForecast');
+            chartInstances['trendForecast'] = new Chart(document.getElementById('trendForecastChart'), {
+                type: 'line',
+                data: { labels: sortedYears, datasets: datasets },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false,
+                            position: 'top',
+                            labels: { font: { size: 9 }, boxWidth: 12, padding: 8 }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: '发布数量' }
+                        },
+                        x: {
+                            title: { display: true, text: '年份' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // ===== 4. 直方图 =====
+        async function loadHistogram() {
+            const res = await fetch('/api/size_dist');
+            const data = await res.json();
+            if (data.labels.length === 0) return;
+            destroyChart('hist');
+            chartInstances['hist'] = new Chart(document.getElementById('histChart'), {
+                type: 'bar',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: '模组数量',
+                        data: data.counts,
+                        backgroundColor: 'rgba(75,192,192,0.6)',
+                        borderColor: 'rgba(75,192,192,1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { title: { display: true, text: '大小 (MB)' } },
+                        y: { beginAtZero: true, title: { display: true, text: '数量' } }
+                    }
+                }
+            });
+            const extra = document.getElementById('histExtra');
+            if (data.over_100 > 0) {
+                extra.innerText = `📌 超过100MB的模组有 ${data.over_100} 个（未在图中显示）`;
+            } else {
+                extra.innerText = '';
+            }
+        }
+
+        // ===== 5. 更新活跃度 =====
+        async function loadActivity() {
+            const res = await fetch('/api/update_activity');
+            const data = await res.json();
+            if (data.categories.length === 0) return;
+            destroyChart('activity');
+            chartInstances['activity'] = new Chart(document.getElementById('activityChart'), {
+                type: 'bar',
+                data: {
+                    labels: data.categories.slice(0, 10),
+                    datasets: [{
+                        label: '平均间隔 (天)',
+                        data: data.avg_days.slice(0, 10),
+                        backgroundColor: 'rgba(255,159,64,0.7)'
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        // ===== 事件绑定 =====
+        document.getElementById('categoryFilter').addEventListener('change', (e) => {
+            currentCategory = e.target.value;
+            currentOffset = 0;
+            fetchTable();
+        });
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            currentSearch = e.target.value;
+            currentOffset = 0;
+            fetchTable();
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', async () => {
+            if (currentOffset >= limit) {
+                currentOffset -= limit;
+                await fetchTable();
+                scrollToTable();
+            }
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', async () => {
+            if (currentOffset + limit < totalItems) {
+                currentOffset += limit;
+                await fetchTable();
+                scrollToTable();
+            }
+        });
+
+        // ===== 初始化 =====
+        fetchStats().then(() => {
+            fetchTable();
+        });
+        loadTrendForecast();
+        loadHistogram();
+        loadActivity();
+    </script>
+
+</body>
+</html>
