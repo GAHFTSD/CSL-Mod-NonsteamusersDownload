@@ -46,27 +46,29 @@
 - MySQL 5.7+（已创建数据库，例如 `cslmods`）
 
 ### 1. 克隆项目
-
+```bash
 git clone https://github.com/GAHFTSD/CSL-Mod-NonsteamusersDownload.git
 cd CSL-Mod-NonsteamusersDownload
-
+```
 ### 2.安装依赖
-
+```bash
 pip install -r requirements.txt
-
+```
 ### 3.配置数据库并导出数据
-
+```bash
 python export_data.py
-
+```
 ### 4.启动 Web 服务
-
+```bash
 python app.py
-
+```
 ### 5.重新爬取 （若项目以及停止更新需在 SKYLINES/spiders/ 目录下执行）
-
+```bash
 scrapy crawl skyline -o output.json
+```
 
 ## 📁 项目结构
+```text
 CSL-Mod-NonsteamusersDownload/
 ├── SKYLINES/              # Scrapy 爬虫模块（含 ANPMYSQL.py、pipelines.py 等）
 ├── templates/
@@ -77,6 +79,7 @@ CSL-Mod-NonsteamusersDownload/
 ├── requirements.txt       # 依赖清单
 ├── .gitignore             # 忽略 db_config.json 等敏感文件
 └── README.md              # 本文档
+```
 
 ## ⚠️ 免责声明 & 致歉
 - 非商业用途：禁止将本项目或数据用于任何商业目的。
