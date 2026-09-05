@@ -1,4 +1,4 @@
-# Cities: Skylines 模组数据采集与统计可视化平台
+# 《城市：天际线》模组下载站 | Cities: Skylines Mod Download Station
 
 > 本项目仅供学习、研究和技术交流使用，**禁止用于任何商业用途**。
 
@@ -15,7 +15,7 @@
 
 ---
 
-## 项目落地全流程
+## 项目流程
 
 | 阶段 | 技术实现 |
 |------|----------|
@@ -24,7 +24,7 @@
 | **后端 API** | Flask 提供 6 个 REST 接口：分页查询、统计、趋势、直方图、活跃度、线性回归预测。 |
 | **前端可视化** | Bootstrap 5 + Chart.js，含粘性统计卡片、趋势/预测组合图、直方图、活跃度柱状图、可搜索/筛选/分页的表格，悬停显示模组图片。 |
 | **配置管理** | 首次运行交互式输入数据库信息，自动生成 `db_config.json`，后续一键执行，敏感文件不入库。 |
-| **版本控制与部署** | 托管于 GitHub，可部署至 PythonAnywhere 等云平台。 |
+| **版本控制与部署** | 托管于 GitHub。部署至PythonAnywhere云平台。 目标网站[链接](airlinprismriver.pythonanywhere.com)，通过[clarity](clarity.microsoft.com)实现采集用户行为|
 
 ---
 
