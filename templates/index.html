@@ -2,23 +2,28 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>" />
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>" />
     <title>城市天际线模组下载站</title>
-    <!-- Bootstrap 5 CSS + JS (with Popper) -->
+    <!-- Bootstrap 5 CSS + JS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js">
     </script>
-    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
     <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "ydf4rwi66b");
+        (function(c, l, a, r, i, t, y) {
+            c[a] = c[a] || function() { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r);
+            t.async = 1;
+            t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0];
+            y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "ydf4rwi66b");
     </script>
 
     <style>
@@ -26,6 +31,8 @@
         body {
             background: #f4f6f9;
             padding: 20px;
+            padding-bottom: 0;
+            user-select: none;
         }
 
         .stat-card {
@@ -72,11 +79,11 @@
 
         /* ===== ★ 扩大模组图片显示 ===== */
         .popover {
-            max-width: 700px; /* 放宽 popover 宽度 */
+            max-width: 700px;
         }
         .popover-img {
-            max-width: 600px;   /* 原 200px，扩大至 600px */
-            max-height: 450px;  /* 原 150px，扩大至 450px */
+            max-width: 600px;
+            max-height: 450px;
             width: 100%;
             height: auto;
             display: block;
@@ -121,7 +128,9 @@
             }
         }
 
-        /* ===== 使用说明 ===== */
+        /* ============================================================ */
+        /* ★★★ 模块1: 使用说明框 样式 ★★★ */
+        /* ============================================================ */
         .usage-banner {
             background: linear-gradient(135deg, #e8f0fe 0%, #d4e4f7 100%);
             border-left: 6px solid #1a73e8;
@@ -161,6 +170,54 @@
             border-radius: 4px;
             font-weight: 600;
             color: #bf360c;
+        }
+
+        /* ============================================================ */
+        /* ★★★ 模块2: 更新说明框 样式 ★★★ */
+        /* ============================================================ */
+        .update-banner {
+            background: linear-gradient(135deg, #e6f7e6 0%, #c8e6c9 100%);
+            border-left: 6px solid #2e7d32;
+            border-radius: 12px;
+            padding: 14px 22px;
+            margin-top: 0;
+            margin-bottom: 22px;
+            box-shadow: 0 2px 12px rgba(46, 125, 50, 0.10);
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .update-banner .icon {
+            font-size: 1.6rem;
+            line-height: 1.2;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .update-banner .text {
+            flex: 1;
+            font-size: 0.95rem;
+            color: #1e3a2a;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .update-banner .text strong {
+            color: #1b5e20;
+        }
+
+        .update-banner .text .tag {
+            display: inline-block;
+            background: #2e7d32;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0 10px;
+            border-radius: 12px;
+            margin-right: 4px;
+            letter-spacing: 0.3px;
         }
 
         /* ===== Footer ===== */
@@ -284,19 +341,991 @@
         .footer-info .links a {
             color: #b0b0b0;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 1.2rem;
             transition: color 0.3s;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            justify-content: center;
         }
 
         .footer-info .links a:hover {
             color: #f1c40f;
         }
 
-        .footer-info .links a .icon {
+        /* ===== 头像样式 ===== */
+        .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #f1c40f;
+            flex-shrink: 0;
+        }
+
+        /* ============================================================ */
+        /* ★★★ 模块5: 主框 样式 ★★★ */
+        /* ============================================================ */
+
+        /* ---- 筛选行工具条 ---- */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .filter-bar .filter-select {
+            flex: 0 0 200px;
+            min-width: 150px;
+        }
+
+        .filter-bar .search-group {
+            flex: 1;
+            min-width: 220px;
+            display: flex;
+            gap: 4px;
+        }
+
+        .filter-bar .search-group .form-control {
+            border-radius: 8px 0 0 8px;
+            border-right: none;
+        }
+
+        .filter-bar .search-group .btn-steam {
+            border-radius: 0 8px 8px 0;
+            background: #1b6d9e;
+            color: white;
+            border: 2px solid #1b6d9e;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 12px;
+        }
+
+        .filter-bar .search-group .btn-steam:hover {
+            background: #155a82;
+            border-color: #155a82;
+            color: white;
+        }
+
+        .filter-bar .search-group .btn-steam i {
+            font-size: 1.1rem;
+        }
+
+        /* 移除table-info显示视图文字，我们不再使用它 */
+        .filter-bar .table-info {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .filter-bar .filter-select {
+                flex: 1 1 100%;
+            }
+            .filter-bar .search-group {
+                flex: 1 1 100%;
+            }
+        }
+
+        /* ---- 视图切换滑块（圆润卡片风格） ---- */
+        .view-slider-wrapper {
+            flex: 0 0 200px;
+            min-width: 160px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: white;
+            border-radius: 10px;
+            padding: 4px 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e9ecef;
+            transition: box-shadow 0.2s, border-color 0.2s;
+            height: 42px;
+        }
+
+        .view-slider-wrapper:hover {
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+            border-color: #d0d7de;
+        }
+
+        .view-slider {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            position: relative;
+            height: 100%;
+            padding: 0 2px;
+        }
+
+        .view-slider .slider-icon {
+            font-size: 0.9rem;
+            color: #adb5bd;
+            flex-shrink: 0;
+            width: 26px;
+            text-align: center;
+            transition: color 0.25s ease, transform 0.2s ease;
+            line-height: 1;
+        }
+
+        .view-slider .slider-icon.active {
+            color: #1a73e8;
+            transform: scale(1.08);
+        }
+
+        .view-slider .slider-icon .fa-table,
+        .view-slider .slider-icon .fa-th {
+            font-size: 0.9rem;
+        }
+
+        .view-slider .slider-track-wrap {
+            flex: 1;
+            position: relative;
+            height: 100%;
+            cursor: pointer;
+            touch-action: none;
+            min-width: 40px;
+            padding: 0 2px;
+        }
+
+        /* 轨道背景：更粗，带圆角，柔和 */
+        .view-slider .slider-track-bg {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 6px;
+            transform: translateY(-50%);
+            background: #e9ecef;
+            border-radius: 6px;
+            transition: background 0.3s;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        /* 轨道填充：渐变蓝色 */
+        .view-slider .slider-track-fill {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 6px;
+            transform: translateY(-50%);
+            background: linear-gradient(90deg, #1a73e8, #4a8cf7);
+            border-radius: 6px;
+            width: 0%;
+            transition: width 0.05s;
+            box-shadow: 0 0 8px rgba(26, 115, 232, 0.25);
+        }
+
+        /* 滑块拇指：大而圆润，带阴影和渐变 */
+        .view-slider .slider-thumb {
+            position: absolute;
+            top: 50%;
+            left: 0%;
+            transform: translate(-50%, -50%);
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+            border: 2px solid #1a73e8;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(26, 115, 232, 0.25), 0 1px 3px rgba(0, 0, 0, 0.08);
+            cursor: grab;
+            transition: box-shadow 0.25s ease, transform 0.2s ease, border-color 0.2s ease;
+            touch-action: none;
+            z-index: 2;
+        }
+
+        .view-slider .slider-thumb::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.6), transparent 70%);
+            pointer-events: none;
+        }
+
+        .view-slider .slider-thumb:hover {
+            box-shadow: 0 4px 14px rgba(26, 115, 232, 0.35), 0 1px 4px rgba(0, 0, 0, 0.1);
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        .view-slider .slider-thumb:active {
+            cursor: grabbing;
+            transform: translate(-50%, -50%) scale(1.12);
+            box-shadow: 0 6px 20px rgba(26, 115, 232, 0.4), 0 2px 6px rgba(0, 0, 0, 0.12);
+            border-color: #1558b0;
+        }
+
+        .view-slider .slider-thumb.dragging {
+            transform: translate(-50%, -50%) scale(1.10);
+            box-shadow: 0 6px 22px rgba(26, 115, 232, 0.4), 0 2px 6px rgba(0, 0, 0, 0.12);
+        }
+
+        /* ---- 滑块上的文字提示（精致小标签） ---- */
+        .slider-tooltip {
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%) translateY(6px);
+            background: rgba(26, 34, 58, 0.92);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 16px;
+            border-radius: 8px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+            letter-spacing: 0.4px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .slider-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: rgba(26, 34, 58, 0.92);
+        }
+
+        .slider-tooltip.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ---- 响应式滑块 ---- */
+        @media (max-width: 992px) {
+            .view-slider-wrapper {
+                flex: 0 0 170px;
+                min-width: 140px;
+                height: 38px;
+                padding: 3px 5px;
+            }
+            .view-slider .slider-thumb {
+                width: 20px;
+                height: 20px;
+            }
+            .view-slider .slider-icon {
+                width: 22px;
+                font-size: 0.8rem;
+            }
+            .view-slider .slider-track-bg,
+            .view-slider .slider-track-fill {
+                height: 5px;
+            }
+            .slider-tooltip {
+                font-size: 0.65rem;
+                padding: 3px 14px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .view-slider-wrapper {
+                flex: 1 1 100%;
+                min-width: 120px;
+                height: 38px;
+            }
+            .view-slider .slider-thumb {
+                width: 20px;
+                height: 20px;
+            }
+            .view-slider .slider-icon {
+                width: 22px;
+                font-size: 0.8rem;
+            }
+            .view-slider .slider-track-bg,
+            .view-slider .slider-track-fill {
+                height: 5px;
+            }
+            .slider-tooltip {
+                font-size: 0.6rem;
+                padding: 2px 12px;
+                bottom: calc(100% + 8px);
+            }
+            .slider-tooltip::after {
+                border-width: 5px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .view-slider-wrapper {
+                height: 34px;
+                padding: 2px 4px;
+                border-radius: 8px;
+            }
+            .view-slider .slider-thumb {
+                width: 17px;
+                height: 17px;
+                border-width: 1.5px;
+            }
+            .view-slider .slider-icon {
+                width: 18px;
+                font-size: 0.7rem;
+            }
+            .view-slider .slider-track-bg,
+            .view-slider .slider-track-fill {
+                height: 4px;
+            }
+            .slider-tooltip {
+                font-size: 0.55rem;
+                padding: 2px 10px;
+                bottom: calc(100% + 6px);
+            }
+            .slider-tooltip::after {
+                border-width: 4px;
+            }
+        }
+
+        /* ============================================================ */
+        /* ★★★★★ 图片视图 (卡片网格) ★★★★★ */
+        /* ============================================================ */
+
+        .mod-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-top: 6px;
+        }
+
+        .mod-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 0;
+            border: 1px solid #f0f0f0;
+            position: relative;
+        }
+        .mod-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.10);
+        }
+
+        /* 图片区 3/7 */
+        .mod-card .card-image {
+            position: relative;
+            padding-top: 42.85%;
+            /* 3/7 ≈ 42.85% */
+            background: #f0f2f5;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .mod-card .card-image img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        .mod-card:hover .card-image img {
+            transform: scale(1.02);
+        }
+        .mod-card .card-image .img-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.4rem;
+            color: #b0b0b0;
+            background: #eef1f5;
+        }
+
+        /* 名称区 2/7 */
+        .mod-card .card-name {
+            padding: 6px 10px 2px 10px;
+            font-weight: 600;
+            font-size: 0.82rem;
+            color: #1a1a2e;
+            line-height: 1.3;
+            flex: 0 0 auto;
+            min-height: 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-break: break-word;
+            max-height: 2.6em;
+        }
+
+        /* 大小+类别 1/7 */
+        .mod-card .card-meta {
+            padding: 2px 10px 0 10px;
+            font-size: 0.7rem;
+            color: #6c757d;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex: 0 0 auto;
+            min-height: 0;
+            line-height: 1.4;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+        .mod-card .card-meta .cat-tag {
+            background: #e9ecef;
+            padding: 0 6px;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            color: #495057;
+            white-space: nowrap;
+        }
+        .mod-card .card-meta .size-tag {
+            color: #6c757d;
+            font-size: 0.65rem;
+            white-space: nowrap;
+        }
+
+        /* 操作区 1/7 */
+        .mod-card .card-actions {
+            padding: 4px 10px 8px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4px;
+            flex: 0 0 auto;
+            min-height: 0;
+            border-top: 1px solid #f0f0f0;
+            margin-top: auto;
+        }
+        .mod-card .card-actions .btn-group-sm {
+            display: flex;
+            gap: 3px;
+        }
+        .mod-card .card-actions .btn-icon-sm {
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            border: 1px solid #e9ecef;
+            background: transparent;
+            color: #495057;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .mod-card .card-actions .btn-icon-sm:hover {
+            background: #e8f0fe;
+            border-color: #1a73e8;
+            color: #1a73e8;
+        }
+        .mod-card .card-actions .btn-icon-sm.btn-cart-add.in-cart {
+            background: #28a745;
+            border-color: #28a745;
+            color: white;
+        }
+        .mod-card .card-actions .btn-icon-sm.btn-cart-add.in-cart:hover {
+            background: #dc3545;
+            border-color: #dc3545;
+            color: white;
+        }
+        .mod-card .card-actions .btn-icon-sm .fa-steam {
+            color: #1b6d9e;
+        }
+        .mod-card .card-actions .btn-icon-sm:hover .fa-steam {
+            color: #0d47a1;
+        }
+
+        /* ---- 图片视图响应式 ---- */
+        @media (max-width: 992px) {
+            .mod-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 12px;
+            }
+        }
+        @media (max-width: 768px) {
+            .mod-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .mod-card .card-name {
+                font-size: 0.75rem;
+                padding: 4px 8px 2px 8px;
+                max-height: 2.4em;
+            }
+            .mod-card .card-meta {
+                font-size: 0.65rem;
+                padding: 2px 8px 0 8px;
+            }
+            .mod-card .card-actions {
+                padding: 3px 8px 6px 8px;
+            }
+            .mod-card .card-actions .btn-icon-sm {
+                width: 24px;
+                height: 24px;
+                font-size: 0.65rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .mod-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+            .mod-card .card-image {
+                padding-top: 50%;
+            }
+            .mod-card .card-name {
+                font-size: 0.7rem;
+                max-height: 2.2em;
+            }
+            .mod-card .card-meta {
+                font-size: 0.6rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0;
+            }
+            .mod-card .card-actions .btn-icon-sm {
+                width: 22px;
+                height: 22px;
+                font-size: 0.6rem;
+            }
+        }
+
+        /* ---- 表格视图与图片视图切换动画 ---- */
+        .mod-grid-wrap {
+            transition: opacity 0.25s ease;
+        }
+        .mod-grid-wrap.fade-in {
+            animation: gridFadeIn 0.3s ease;
+        }
+        @keyframes gridFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .table-wrap {
+            transition: opacity 0.25s ease;
+        }
+        .table-wrap.fade-in {
+            animation: gridFadeIn 0.3s ease;
+        }
+
+        /* ---- Steam 搜索结果区域 ---- */
+        #steamResult {
+            margin: 12px 0 20px 0;
+            display: none;
+        }
+        #steamResult.show {
+            display: block;
+        }
+        #steamResult .mod-preview {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 18px 20px;
+            border: 1px solid #e9ecef;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        #steamResult .mod-preview .preview-img {
+            width: 160px;
+            min-height: 90px;
+            max-height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+            background: #e9ecef;
+            flex-shrink: 0;
+        }
+        #steamResult .mod-preview .preview-info {
+            flex: 1;
+            min-width: 200px;
+        }
+        #steamResult .mod-preview .preview-info .mod-title {
             font-size: 1.2rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 4px;
+        }
+        #steamResult .mod-preview .preview-info .mod-meta {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-bottom: 6px;
+        }
+        #steamResult .mod-preview .preview-info .mod-desc {
+            font-size: 0.9rem;
+            color: #2d3436;
+            max-height: 80px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        #steamResult .mod-preview .preview-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 6px;
+        }
+        #steamResult .mod-preview .preview-actions .btn {
+            font-size: 0.85rem;
+        }
+
+        /* ---- 前置依赖列表 ---- */
+        .dependency-list {
+            margin-top: 10px;
+            padding: 10px 14px;
+            background: #fff8e7;
+            border-radius: 8px;
+            border-left: 4px solid #f39c12;
+        }
+        .dependency-list .dep-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #7f6000;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .dependency-list .dep-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: white;
+            padding: 2px 12px 2px 8px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid #f0d9a0;
+            margin: 2px 4px 2px 0;
+        }
+        .dependency-list .dep-item .dep-remove {
+            cursor: pointer;
+            color: #c0392b;
+            font-weight: 700;
+            font-size: 1rem;
+            line-height: 1;
+            padding: 0 2px;
+        }
+        .dependency-list .dep-item .dep-remove:hover {
+            color: #e74c3c;
+        }
+        .dependency-list .add-dep-form {
+            display: flex;
+            gap: 6px;
+            margin-top: 6px;
+            flex-wrap: wrap;
+        }
+        .dependency-list .add-dep-form input {
+            width: 160px;
+            padding: 4px 8px;
+            font-size: 0.8rem;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+        }
+        .dependency-list .add-dep-form button {
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            border-radius: 6px;
+        }
+
+        /* ============================================================ */
+        /* ★★★ 模块6: 购物车框 样式 ★★★ */
+        /* ============================================================ */
+
+        /* ---- 购物车悬浮球 (可拖动, 居中) ---- */
+        #cartFab {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1050;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a1a2e, #0f3460);
+            color: white;
+            border: none;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: box-shadow 0.3s ease, transform 0.15s ease;
+            cursor: grab;
+            touch-action: none;
+            will-change: transform;
+        }
+        #cartFab:active {
+            cursor: grabbing;
+        }
+        #cartFab .fab-icon {
+            transition: transform 0.2s;
+            pointer-events: none;
+        }
+        #cartFab .badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #e74c3c;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 700;
+            min-width: 24px;
+            text-align: center;
+            pointer-events: none;
+            transition: transform 0.2s;
+            display: none;
+        }
+        #cartFab .badge.show {
+            display: inline-block;
+        }
+
+        /* 小红球动画 (飞向购物车) */
+        .fly-ball {
+            position: fixed;
+            width: 18px;
+            height: 18px;
+            background: radial-gradient(circle at 30% 30%, #ff6b6b, #c0392b);
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(255, 0, 0, 0.5);
+            pointer-events: none;
+            z-index: 1060;
+            transition: none;
+            will-change: transform, opacity;
+        }
+
+        /* ---- 购物车侧边栏 (可调整大小) ---- */
+        .cart-offcanvas {
+            width: 420px;
+            max-width: 90vw;
+            min-width: 300px;
+            transition: none !important;
+            /* 防止调整大小时的过渡动画 */
+        }
+
+        .cart-offcanvas .offcanvas-body {
+            overflow-y: auto;
+        }
+
+        /* 调整大小手柄 */
+        #resize-handle {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 8px;
+            cursor: ew-resize;
+            z-index: 1032;
+            background: transparent;
+            transition: background 0.2s;
+        }
+
+        #resize-handle:hover {
+            background: rgba(13, 110, 253, 0.08);
+        }
+
+        #resize-handle::after {
+            content: '';
+            position: absolute;
+            left: 3px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 2px;
+            height: 30px;
+            background: #ced4da;
+            border-radius: 2px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        #resize-handle:hover::after {
+            opacity: 1;
+        }
+
+        /* ---- 购物车分组样式 ---- */
+        .cart-category-group {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #e9ecef;
+        }
+
+        .cart-category-group .category-emoji {
+            cursor: default;
+        }
+
+        .cart-category-group .collapse-trigger {
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #6c757d;
+            transition: color 0.2s;
+            padding: 4px 0;
+        }
+
+        .cart-category-group .collapse-trigger:hover {
+            color: #0d6efd;
+        }
+
+        .cart-category-group .collapse-trigger .badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 400;
+        }
+
+        .cart-category-group .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        /* ---- 购物车侧边栏 ---- */
+        .cart-offcanvas .offcanvas-header {
+            background: linear-gradient(135deg, #1a1a2e, #0f3460);
+            color: white;
+            padding-right: 1rem;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        .cart-item .item-img {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 6px;
+            background: #e9ecef;
+            flex-shrink: 0;
+        }
+        .cart-item .item-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .cart-item .item-info .item-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #1a1a2e;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .cart-item .item-info .item-id {
+            font-size: 0.7rem;
+            color: #6c757d;
+        }
+        .cart-item .item-actions {
+            flex-shrink: 0;
+        }
+        .cart-item .item-actions .btn {
+            padding: 2px 8px;
+            font-size: 0.75rem;
+        }
+        .cart-empty {
+            text-align: center;
+            color: #adb5bd;
+            padding: 40px 0;
+        }
+        .cart-empty i {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        /* ---- 购物车底部总计 ---- */
+        .cart-total {
+            background: #f8f9fa;
+            padding: 12px 16px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 10px;
+        }
+        .cart-total .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+        }
+        .cart-total .total-row strong {
+            font-weight: 600;
+        }
+        .cart-total .category-detail-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 4px;
+        }
+        .cart-total .category-detail-row .badge {
+            background: #e9ecef !important;
+            color: #495057 !important;
+            font-weight: 400;
+            font-size: 0.8rem;
+            padding: 4px 10px;
+        }
+
+        /* ---- 表格操作按钮 ---- */
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .btn-icon i {
+            line-height: 1;
+        }
+        .btn-icon.btn-cart-add {
+            background: transparent;
+            border: 1px solid #ced4da;
+            color: #495057;
+        }
+        .btn-icon.btn-cart-add:hover {
+            background: #e8f0fe;
+            border-color: #1a73e8;
+            color: #1a73e8;
+        }
+        .btn-icon.btn-cart-add.in-cart {
+            background: #28a745;
+            border-color: #28a745;
+            color: white;
+        }
+        .btn-icon.btn-cart-add.in-cart:hover {
+            background: #dc3545;
+            border-color: #dc3545;
+            color: white;
+        }
+
+        /* ---- 批量下载提示框 ---- */
+        .batch-modal .modal-content {
+            border-radius: 12px;
         }
 
         /* ===== 响应式 ===== */
@@ -332,7 +1361,17 @@
             .usage-banner .text {
                 font-size: 0.88rem;
             }
-            /* 移动端 popover 图片适当缩小 */
+            .update-banner {
+                padding: 12px 16px;
+                flex-direction: column;
+                gap: 6px;
+            }
+            .update-banner .icon {
+                font-size: 1.4rem;
+            }
+            .update-banner .text {
+                font-size: 0.88rem;
+            }
             .popover {
                 max-width: 90vw;
             }
@@ -340,6 +1379,63 @@
                 max-width: 80vw;
                 max-height: 60vh;
             }
+            #steamResult .mod-preview {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            #steamResult .mod-preview .preview-img {
+                width: 100%;
+                max-height: 200px;
+            }
+            #cartFab {
+                width: 56px;
+                height: 56px;
+                font-size: 24px;
+                bottom: 18px;
+            }
+            .cart-offcanvas {
+                width: 100vw;
+                max-width: 100vw;
+                min-width: 100vw;
+            }
+            .filter-bar .search-group .btn-steam {
+                padding: 0 10px;
+            }
+            .cart-item .item-img {
+                width: 40px;
+                height: 40px;
+            }
+            /* 移动端禁用调整大小 */
+            #resize-handle {
+                display: none !important;
+            }
+        }
+
+        /* ---- 加载动画 ---- */
+        .spinner-small {
+            display: inline-block;
+            width: 1.2rem;
+            height: 1.2rem;
+            border: 3px solid #e9ecef;
+            border-top-color: #1b6d9e;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Tooltip 自定义 */
+        .tooltip-inner {
+            font-size: 0.8rem;
+            padding: 4px 10px;
+        }
+
+        /* 购物车滚动跟随时的平滑过渡 */
+        #cartFab.smooth-follow {
+            transition: transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
     </style>
 </head>
@@ -347,10 +1443,9 @@
 
     <div class="container-fluid">
 
-        <!-- ===== 标题 ===== -->
-        <h1 class="mb-1">📊 Cities: Skylines 下载列表</h1>
-
-        <!-- ===== 使用说明 ===== -->
+        <!-- ============================================================ -->
+        <!-- ★★★ 模块1: 使用说明框 ★★★ -->
+        <!-- ============================================================ -->
         <div class="usage-banner">
             <span class="icon">📌</span>
             <p class="text">
@@ -359,13 +1454,40 @@
                 及 <span class="highlight">学习版</span> 用户下载模组。
                 本网站仅供 <strong>学习研究和技术交流</strong> 使用，
                 <strong style="color:#c0392b;">禁止用于任何商业用途</strong>。
-            </p>
-            <p class="text">
-                本网站属于社区项目，与Valve或Steam、Paradox、Colossal Order等官方无关。
+                <br>
+                <span style="color:#1b6d9e; font-weight:600;">🔍 新增：</span> 支持通过 <strong>Steam创意工坊ID</strong> 搜索模组，<del>自动识别前置需求</del>，并可加入 <strong>购物车</strong> 批量下载。
+                <br>
+                <span style="color:#2d3436; font-size:0.85rem;">🛒 购物车悬浮球可拖拽，单击切换，加入时伴随飞行动画。</span>
+                <br>
+                <span style="color:#2d3436; font-size:0.85rem;">🖼️ 视图切换：左侧 <i class="fas fa-table"></i> 表格 / 右侧 <i class="fas fa-th"></i> 图片网格。</span>
             </p>
         </div>
 
-        <!-- ===== 统计卡片（粘性顶部） ===== -->
+        <!-- ============================================================ -->
+        <!-- ★★★ 模块2: 更新说明框 ★★★ -->
+        <!-- ============================================================ -->
+<div class="update-banner">
+    <span class="icon">🚀</span>
+    <p class="text">
+        <strong>📢 更新说明 (2026-09-06)</strong>
+        <br>
+        <span class="tag">MAJOR</span> <strong>全新视图切换 & 购物车系统上线</strong> —— 支持表格/图片网格双视图，滑动切换流畅；购物车支持按类别分组折叠、侧边栏宽度拖拽调整、飞行动画反馈，并智能统计类别总数与大小。
+        <br>
+        <span class="tag">🔍</span> <strong>Steam 工坊集成</strong> —— 输入创意工坊 ID 或 URL 即可搜索模组，自动解析名称、描述、封面图及<del>前置依赖，支持一键将模组或依赖</del>(并没有)加入购物车。
+        <br>
+        <span class="tag">🖼️</span> <strong>图片网格视图</strong> —— 卡片式展示模组缩略图、名称、类别和大小，悬停放大，操作按钮直观，适配移动端。
+        <br>
+        <span class="tag">🛒</span> <strong>购物车增强</strong> —— 每组类别显示 Emoji 与数量，点击“还有 X 个物品”展开折叠；拖拽悬浮球随意定位，点击切换侧边栏，侧边栏可从左边缘拖拽调整宽度。
+        <br>
+        <span class="tag">📊</span> <strong>数据可视化升级</strong> —— 直方图柱顶显示数值标签（字体自适应），筛选下拉在图片视图下自动附加类别 Emoji，界面更加直观。
+        <br>
+        <span class="tag">FIX</span> 修复移动端布局适配问题，优化统计卡片粘性滚动效果，增强 Toast 提示体验。
+    </p>
+</div>
+
+        <!-- ============================================================ -->
+        <!-- ★★★ 模块3: 数字数据框 ★★★ -->
+        <!-- ============================================================ -->
         <div class="row mb-3" id="statsRow">
             <div class="col-md-4">
                 <div class="stat-card"><h5>📦 总模组</h5><p id="totalCount" class="fs-2 fw-bold">-</p></div>
@@ -378,7 +1500,11 @@
             </div>
         </div>
 
-        <!-- ===== 第一行：趋势+预测图 ===== -->
+        <!-- ============================================================ -->
+        <!-- ★★★ 模块4: 图表数据框 ★★★ -->
+        <!-- ============================================================ -->
+
+        <!-- 4.1 年度发布趋势 -->
         <div class="row mb-4">
             <div class="col-12">
                 <div class="stat-card">
@@ -389,7 +1515,7 @@
             </div>
         </div>
 
-        <!-- ===== 第二行：文件大小分布 + 更新活跃度 ===== -->
+        <!-- 4.2 文件大小分布 + 更新活跃度 -->
         <div class="row mb-4">
             <div class="col-md-6">
                 <div class="stat-card">
@@ -407,31 +1533,74 @@
             </div>
         </div>
 
-        <!-- ===== 筛选与表格 ===== -->
-        <div class="row mb-3">
-            <div class="col-md-4">
+        <!-- ============================================================ -->
+        <!-- ★★★ 模块5: 主框 (视图切换 + 筛选 + 搜索 + 内容) ★★★ -->
+        <!-- ============================================================ -->
+
+        <!-- 5.1 筛选栏（视图切换 + 类别下拉 + 搜索框） -->
+        <div class="filter-bar">
+
+            <!-- 5.1.1 视图切换滑块 -->
+            <div class="view-slider-wrapper" id="viewSliderWrapper">
+                <div class="view-slider" id="viewSlider">
+                    <span class="slider-icon active" id="sliderIconLeft"><i class="fas fa-table"></i></span>
+                    <div class="slider-track-wrap" id="sliderTrack">
+                        <div class="slider-track-bg"></div>
+                        <div class="slider-track-fill" id="sliderFill"></div>
+                        <div class="slider-thumb" id="sliderThumb">
+                            <span class="slider-tooltip" id="sliderTooltip">表格视图</span>
+                        </div>
+                    </div>
+                    <span class="slider-icon" id="sliderIconRight"><i class="fas fa-th"></i></span>
+                </div>
+            </div>
+
+            <!-- 5.1.2 类别筛选下拉 -->
+            <div class="filter-select">
                 <select id="categoryFilter" class="form-select">
                     <!-- 由JS动态生成 -->
                 </select>
             </div>
-            <div class="col-md-4">
-                <input type="text" id="searchInput" class="form-control" placeholder="搜索模组名称..." />
+
+            <!-- 5.1.3 搜索框 + Steam 搜索按钮 -->
+            <div class="search-group">
+                <input type="text" id="searchInput" class="form-control" placeholder="以关键词、SteamID例如：114514检索" />
+                <button class="btn btn-steam" id="steamSearchBtn" data-bs-toggle="tooltip" title="使用Steam ID搜索">
+                    <i class="fab fa-steam"></i>
+                </button>
             </div>
         </div>
 
-        <div class="table-container">
-            <table class="table table-hover" id="modTable">
-                <thead>
-                    <tr>
-                        <th>名称</th>
-                        <th>类别</th>
-                        <th>大小 (MB)</th>
-                        <th>上传日期</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody"></tbody>
-            </table>
+        <!-- 5.2 Steam 搜索结果展示区 -->
+        <div id="steamResult">
+            <!-- 由 JS 动态渲染 -->
+        </div>
+
+        <!-- 5.3 模组列表容器（表格视图 + 图片网格视图 + 分页） -->
+        <div class="table-container" id="tableContainer">
+
+            <!-- 5.3.1 表格视图 -->
+            <div class="table-wrap" id="tableView">
+                <table class="table table-hover" id="modTable">
+                    <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>类别</th>
+                            <th>大小 (MB)</th>
+                            <th>上传日期</th>
+                            <th class="text-center">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+
+            <!-- 5.3.2 图片网格视图 -->
+            <div class="mod-grid-wrap" id="gridView" style="display:none;">
+                <div class="mod-grid" id="gridBody"></div>
+            </div>
+
+            <!-- 5.3.3 分页控件 -->
             <div id="pagination" class="d-flex justify-content-between align-items-center mt-3">
                 <span id="infoText"></span>
                 <div>
@@ -444,9 +1613,91 @@
     </div>
     <!-- /.container-fluid -->
 
-    <!-- ===== Footer ===== -->
+    <!-- ============================================================ -->
+    <!-- ★★★ 模块6: 购物车框 ★★★ -->
+    <!-- ============================================================ -->
+
+    <!-- 6.1 购物车悬浮球 -->
+    <button id="cartFab" aria-label="购物车">
+        <span class="fab-icon"><i class="fas fa-shopping-cart"></i></span>
+        <span class="badge" id="cartBadge">0</span>
+    </button>
+
+    <!-- 6.2 购物车侧边栏 (Offcanvas) - 已移除右上角关闭按钮 -->
+    <div class="offcanvas offcanvas-end cart-offcanvas" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="cartOffcanvasLabel"><i class="fas fa-shopping-cart"></i> 我的购物车</h5>
+            <!-- 关闭按钮已移除 -->
+        </div>
+        <div class="offcanvas-body">
+            <!-- 购物车列表 -->
+            <div id="cartList">
+                <div class="cart-empty">
+                    <i class="fas fa-cart-plus"></i>
+                    <p>购物车还是空的<br><small>添加模组到购物车以便批量下载</small></p>
+                </div>
+            </div>
+            <!-- 购物车底部操作栏 -->
+            <div id="cartFooter" style="display:none;">
+                <div class="cart-total">
+                    <!-- 类别总数行 -->
+                    <div class="total-row" id="cartCategoryTotalRow">
+                        <span>📂 类别总数</span>
+                        <span><strong id="cartCategoryCount">0</strong> 种</span>
+                    </div>
+                    <!-- 类别详情行 (右对齐显示 emoji × 数量) -->
+                    <div class="category-detail-row" id="cartCategoryDetailRow"></div>
+                    <!-- 大小和总数 -->
+                    <div class="total-row"><span>📦 大小总计</span><span><strong id="cartSizeTotal">0 MB</strong></span></div>
+                    <div class="total-row mt-2">
+                        <span>模组总数：<strong id="cartTotalCount">0</strong> 个</span>
+                        <div>
+                            <button class="btn btn-sm btn-outline-danger me-1" id="cartClearBtn"><i class="fas fa-trash"></i> 清空</button>
+                            <button class="btn btn-sm btn-success" id="cartDownloadBtn"><i class="fas fa-download"></i> 批量下载</button>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-muted small mt-2 mb-0">
+                    <i class="fas fa-info-circle"></i> 点击「批量下载」将依次打开所有模组的下载链接。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6.3 批量下载提示框 (Modal) -->
+    <div class="modal fade batch-modal" id="batchModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-download"></i> 批量下载提示</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>将打开 <strong id="batchCount">0</strong> 个下载链接。</p>
+                    <p class="text-warning"><i class="fas fa-exclamation-triangle"></i> 请确保浏览器允许弹出窗口，否则部分链接可能被拦截。</p>
+                    <p class="text-muted small">提示：如果浏览器拦截，请允许本站弹出窗口。每个链接将间隔0.3秒打开，以避免卡顿。</p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="batchConfirmCheck">
+                        <label class="form-check-label" for="batchConfirmCheck">
+                            我已了解，开始下载
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="batchConfirmBtn" disabled>确认下载</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- ★★★ 模块7: 附加内容框 (免责声明 + 个人信息) ★★★ -->
+    <!-- ============================================================ -->
     <div class="footer-container" id="footerContainer">
         <div class="footer-inner">
+
+            <!-- 7.1 免责声明横幅 -->
             <div class="disclaimer-banner">
                 <div class="title">免责声明 &amp; 致歉</div>
                 <p class="text">
@@ -462,26 +1713,19 @@
                 </p>
             </div>
 
+            <!-- 7.2 个人信息区域 -->
             <div class="footer-info">
                 <div class="author">
-                    <span class="name">👤 Airlin Neleftari Prismriver(GAHFTSD)</span>
+                    <span class="name">Airlin Nefeltari Prismriver(GAHFTSD)</span>
                     <span class="label">|</span>
                     <span class="label">📧 <a href="mailto:gahftsd@hotmail.com" style="color:#b0b0b0; text-decoration:none;">gahftsd@hotmail.com</a></span>
                 </div>
                 <div class="links">
-                    <a href="https://space.bilibili.com/104341778" target="_blank">
-                        <span class="icon">📺</span> B站主页
-                    </a>
-                    <a href="https://steamcommunity.com/id/GAHFTSD/" target="_blank">
-                        <span class="icon">🎮</span> Steam主页
-                    </a>
-                    <a href="https://xiaoheihe.cn/app/user/profile/49405634" target="_blank">
-                        <span class="icon">⚫</span> 小黑盒主页
-                    </a>
-                    <a href="#" onclick="alert('项目源码：https://github.com/GAHFTSD/CSL-Mod-NonsteamusersDownload'); return false;">
-                        <span class="icon">💻</span> GitHub
-                    </a>
-                    <span style="color:#555; font-size:0.8rem;">
+                    <a href="ANP" target="_blank" title="B站主页"><i class="fab fa-bilibili"></i></a>
+                    <a href="ANP" target="_blank" title="Steam主页"><i class="fab fa-steam"></i></a>
+                    <a href="ANP" target="_blank" title="小黑盒主页"><span style="font-size:1.1rem;">⚫</span></a>
+                    <a href="ANP" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                    <span style="color:#555; font-size:0.8rem; margin-left:10px;">
                         © 2024-Present Airlin Neleftari Prismriver (GAHFTSD). 保留所有权利。
                         网站部分由AI参与制作
                     </span>
@@ -490,11 +1734,28 @@
         </div>
     </div>
 
+    <!-- ===== Toast 容器（仅用于错误/警告） ===== -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index:9999;">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto" id="toastTitle">提示</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="toastBody">
+                消息内容
+            </div>
+        </div>
+    </div>
+
     <!-- ============================================================ -->
     <!-- JavaScript -->
     <!-- ============================================================ -->
     <script>
-        // ===== 滚动检测：Footer 显隐 =====
+        // ================================================================
+        // 1. 原有功能：滚动检测 Footer、统计、表格、图表等
+        // ================================================================
+
+        // ---- 1.1 Footer 显隐 ----
         function checkFooterVisibility() {
             const footer = document.getElementById('footerContainer');
             const scrollY = window.scrollY;
@@ -502,7 +1763,6 @@
             const documentHeight = document.documentElement.scrollHeight;
             const threshold = 100;
             const isNearBottom = (scrollY + windowHeight) >= (documentHeight - threshold);
-
             if (isNearBottom) {
                 footer.classList.add('visible');
             } else {
@@ -523,19 +1783,55 @@
 
         window.addEventListener('load', function() {
             setTimeout(checkFooterVisibility, 300);
+            loadCart();
+            initCartDragging();
+            initViewSlider();
+            initResize();
         });
 
         window.addEventListener('resize', function() {
             checkFooterVisibility();
         });
 
-        // ===== 全局变量 =====
+        // ---- 1.2 全局变量 ----
         let currentCategory = '建筑';
         let currentSearch = '';
         let currentOffset = 0;
         const limit = 20;
         let totalItems = 0;
         let chartInstances = {};
+        let currentView = 'table'; // 'table' | 'grid'
+
+        // 类别 Emoji 映射（用于图片视图）
+        const categoryEmojiMap = {
+            '建筑': '🏗️',
+            '地图': '🗺️',
+            '模组': '🧩',
+            '道路': '🛣️',
+            '公园': '🌳',
+            '公园区域': '🏞️',
+            '车辆': '🚗',
+            '市民': '🧑',
+            '未分类': '❓',
+            '电力': '⚡',
+            '立交': '🔀',
+            '地图主题': '🎨',
+            '存档': '💾',
+            '收藏夹': '⭐',
+            '色彩校正LUT': '🌈',
+            '树木': '🌲',
+            '视觉镜头': '🎥',
+            '剧情': '📖',
+            '资产包': '📦',
+            'Race Car': '🏎️',
+            'Industry Area': '🏭',
+        };
+        // 默认emoji
+        const defaultEmoji = '📌';
+
+        function getCategoryEmoji(cat) {
+            return categoryEmojiMap[cat] || defaultEmoji;
+        }
 
         function destroyChart(id) {
             if (chartInstances[id]) {
@@ -544,7 +1840,7 @@
             }
         }
 
-        // ===== 滚动缩小统计卡片 =====
+        // ---- 1.3 滚动缩小统计卡片 ----
         window.addEventListener('scroll', function() {
             const row = document.getElementById('statsRow');
             if (window.scrollY > 60) {
@@ -554,7 +1850,6 @@
             }
         });
 
-        // ===== 滚动到表格标题（为粘性卡片预留空间） =====
         function scrollToTable() {
             const tableContainer = document.querySelector('.table-container');
             const statsRow = document.getElementById('statsRow');
@@ -568,7 +1863,7 @@
             });
         }
 
-        // ===== 1. 统计卡片 =====
+        // ---- 1.4 统计卡片 ----
         async function fetchStats() {
             const res = await fetch('/api/stats');
             const stats = await res.json();
@@ -578,10 +1873,18 @@
 
             const sel = document.getElementById('categoryFilter');
             sel.innerHTML = '';
-            for (const [cat, count] of Object.entries(stats.categories)) {
+            // 默认"建筑"放在最前面
+            const sortedCats = Object.keys(stats.categories).sort((a, b) => {
+                if (a === '建筑') return -1;
+                if (b === '建筑') return 1;
+                return a.localeCompare(b);
+            });
+            for (const cat of sortedCats) {
                 const opt = document.createElement('option');
                 opt.value = cat;
-                opt.textContent = `${cat} (${count})`;
+                // 根据当前视图决定是否加emoji
+                const emoji = currentView === 'grid' ? getCategoryEmoji(cat) + ' ' : '';
+                opt.textContent = `${emoji}${cat} (${stats.categories[cat]})`;
                 if (cat === currentCategory) opt.selected = true;
                 sel.appendChild(opt);
             }
@@ -591,16 +1894,57 @@
             }
         }
 
-        // ===== 2. 表格 =====
+        // ---- 更新下拉选项的emoji（视图切换时调用） ----
+        function updateCategoryOptions() {
+            const sel = document.getElementById('categoryFilter');
+            const options = sel.options;
+            const currentVal = sel.value;
+            for (let i = 0; i < options.length; i++) {
+                const cat = options[i].value;
+                const countMatch = options[i].text.match(/\((\d+)\)$/);
+                const count = countMatch ? countMatch[1] : '';
+                const emoji = currentView === 'grid' ? getCategoryEmoji(cat) + ' ' : '';
+                options[i].textContent = `${emoji}${cat}${count ? ' ('+count+')' : ''}`;
+            }
+            // 保持选中
+            sel.value = currentVal;
+            // 更新搜索框placeholder
+            const searchInput = document.getElementById('searchInput');
+            if (currentView === 'grid') {
+                searchInput.placeholder = '🔍 搜索模组 (ID/名称)';
+            } else {
+                searchInput.placeholder = '以关键词、SteamID例如：114514检索';
+            }
+        }
+
+        // ---- 1.5 表格 / 图片网格 ----
         async function fetchTable() {
             const url =
                 `/api/mods?offset=${currentOffset}&limit=${limit}&category=${encodeURIComponent(currentCategory)}&search=${encodeURIComponent(currentSearch)}`;
             const res = await fetch(url);
             const json = await res.json();
             totalItems = json.total;
+
+            renderTableView(json.data);
+            renderGridView(json.data);
+
+            document.getElementById('infoText').innerText =
+                `显示 ${currentOffset+1} - ${Math.min(currentOffset+limit, totalItems)} / 共 ${totalItems} 条`;
+            document.getElementById('prevBtn').disabled = currentOffset === 0;
+            document.getElementById('nextBtn').disabled = currentOffset + limit >= totalItems;
+
+            showCurrentView();
+            updateTableCartButtons();
+            updateGridCartButtons();
+            initTooltips();
+        }
+
+        // ---- 渲染表格 ----
+        function renderTableView(data) {
             const tbody = document.getElementById('tableBody');
             tbody.innerHTML = '';
-            json.data.forEach(row => {
+            data.forEach(row => {
+                const inCart = isInCart(row.steam || row.id || '');
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                             <td>
@@ -616,9 +1960,21 @@
                             <td>${row.category}</td>
                             <td>${row.size_mb ? row.size_mb.toFixed(2) : '-'}</td>
                             <td>${row.published || '-'}</td>
-                            <td>
-                                <a href="${row.steam}" target="_blank" class="btn btn-sm btn-outline-primary">Steam</a>
-                                ${row.download ? `<a href="${row.download}" target="_blank" class="btn btn-sm btn-outline-success">下载</a>` : ''}
+                            <td class="text-center">
+                                <a href="${row.steam}" target="_blank" class="btn btn-sm btn-outline-primary btn-icon" data-bs-toggle="tooltip" title="打开Steam页面"><i class="fab fa-steam"></i></a>
+                                ${row.download ? `<a href="${row.download}" target="_blank" class="btn btn-sm btn-outline-success btn-icon" data-bs-toggle="tooltip" title="下载模组"><i class="fas fa-download"></i></a>` : ''}
+                                <button class="btn btn-sm btn-icon btn-cart-add ${inCart ? 'in-cart' : ''}" 
+                                        data-steam="${row.steam || ''}" 
+                                        data-name="${row.name}" 
+                                        data-download="${row.download || ''}"
+                                        data-image="${row.image || ''}"
+                                        data-size="${row.size_mb || 0}"
+                                        data-category="${row.category || ''}"
+                                        data-bs-toggle="tooltip" 
+                                        title="${inCart ? '移除购物车' : '加入购物车'}"
+                                        onclick="toggleCartFromTable(this)">
+                                    <i class="fas ${inCart ? 'fa-check' : 'fa-cart-plus'}"></i>
+                                </button>
                             </td>
                         `;
                 tbody.appendChild(tr);
@@ -632,14 +1988,89 @@
                     sanitize: false
                 });
             });
-
-            document.getElementById('infoText').innerText =
-                `显示 ${currentOffset+1} - ${Math.min(currentOffset+limit, totalItems)} / 共 ${totalItems} 条`;
-            document.getElementById('prevBtn').disabled = currentOffset === 0;
-            document.getElementById('nextBtn').disabled = currentOffset + limit >= totalItems;
         }
 
-        // ===== 3. 趋势+预测图 =====
+        // ---- 渲染图片网格 ----
+        function renderGridView(data) {
+            const grid = document.getElementById('gridBody');
+            grid.innerHTML = '';
+            data.forEach(row => {
+                const inCart = isInCart(row.steam || row.id || '');
+                const imgSrc = row.image || '';
+                const card = document.createElement('div');
+                card.className = 'mod-card';
+                card.innerHTML = `
+                            <div class="card-image">
+                                ${imgSrc ? `<img src="${imgSrc}" alt="${row.name}" loading="lazy" onerror="this.style.display='none';this.parentElement.querySelector('.img-placeholder').style.display='flex'">` : ''}
+                                <div class="img-placeholder" style="${imgSrc ? 'display:none;' : 'display:flex;'}">
+                                    <i class="fas fa-cube"></i>
+                                </div>
+                            </div>
+                            <div class="card-name" title="${row.name}">${row.name}</div>
+                            <div class="card-meta">
+                                <span class="cat-tag"><i class="fas fa-folder-open"></i> ${row.category || '未分类'}</span>
+                                <span class="size-tag"><i class="fas fa-hdd"></i> ${row.size_mb ? row.size_mb.toFixed(1) + ' MB' : '-'}</span>
+                            </div>
+                            <div class="card-actions">
+                                <div class="btn-group-sm">
+                                    <a href="${row.steam}" target="_blank" class="btn-icon-sm" data-bs-toggle="tooltip" title="Steam页面"><i class="fab fa-steam"></i></a>
+                                    ${row.download ? `<a href="${row.download}" target="_blank" class="btn-icon-sm" data-bs-toggle="tooltip" title="下载"><i class="fas fa-download"></i></a>` : ''}
+                                </div>
+                                <button class="btn-icon-sm btn-cart-add ${inCart ? 'in-cart' : ''}" 
+                                        data-steam="${row.steam || ''}" 
+                                        data-name="${row.name}" 
+                                        data-download="${row.download || ''}"
+                                        data-image="${row.image || ''}"
+                                        data-size="${row.size_mb || 0}"
+                                        data-category="${row.category || ''}"
+                                        data-bs-toggle="tooltip" 
+                                        title="${inCart ? '移除购物车' : '加入购物车'}"
+                                        onclick="toggleCartFromGrid(this)">
+                                    <i class="fas ${inCart ? 'fa-check' : 'fa-cart-plus'}"></i>
+                                </button>
+                            </div>
+                        `;
+                grid.appendChild(card);
+            });
+        }
+
+        // ---- 视图切换 ----
+        function showCurrentView() {
+            const tableView = document.getElementById('tableView');
+            const gridView = document.getElementById('gridView');
+            if (currentView === 'table') {
+                tableView.style.display = 'block';
+                gridView.style.display = 'none';
+            } else {
+                tableView.style.display = 'none';
+                gridView.style.display = 'block';
+                const wrap = document.getElementById('gridView');
+                wrap.classList.remove('fade-in');
+                void wrap.offsetWidth;
+                wrap.classList.add('fade-in');
+            }
+            // 更新分页信息
+            const info = document.getElementById('infoText');
+            if (totalItems > 0) {
+                info.innerText =
+                    `显示 ${currentOffset+1} - ${Math.min(currentOffset+limit, totalItems)} / 共 ${totalItems} 条`;
+            } else {
+                info.innerText = '暂无数据';
+            }
+            // 更新筛选栏样式（emoji）
+            updateCategoryOptions();
+        }
+
+        function setView(view) {
+            currentView = view;
+            showCurrentView();
+            const pct = view === 'table' ? 0 : 100;
+            updateSliderPosition(pct);
+            document.getElementById('sliderIconLeft').classList.toggle('active', view === 'table');
+            document.getElementById('sliderIconRight').classList.toggle('active', view === 'grid');
+        }
+
+        // ---- 1.6 图表 ----
         async function loadTrendForecast() {
             const [trendRes, forecastRes] = await Promise.all([
                 fetch('/api/trend'),
@@ -762,11 +2193,12 @@
             });
         }
 
-        // ===== 4. 直方图 =====
+        // ★★★ 直方图（带数值标签） ★★★
         async function loadHistogram() {
             const res = await fetch('/api/size_dist');
             const data = await res.json();
             if (data.labels.length === 0) return;
+
             destroyChart('hist');
             chartInstances['hist'] = new Chart(document.getElementById('histChart'), {
                 type: 'bar',
@@ -783,13 +2215,65 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
+                    plugins: {
+                        legend: { display: false }
+                    },
                     scales: {
-                        x: { title: { display: true, text: '大小 (MB)' } },
-                        y: { beginAtZero: true, title: { display: true, text: '数量' } }
+                        x: {
+                            title: { display: true, text: '大小 (MB)' }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: '数量' }
+                        }
                     }
-                }
+                },
+                plugins: [{
+                    id: 'barValueLabels',
+                    afterDraw: function(chart) {
+                        const ctx = chart.ctx;
+                        const meta = chart.getDatasetMeta(0);
+                        const dataset = chart.data.datasets[0];
+                        const dataValues = dataset.data;
+                        if (!meta || !meta.data || meta.data.length === 0) return;
+                        ctx.save();
+                        meta.data.forEach((bar, index) => {
+                            const value = dataValues[index];
+                            if (value === null || value === undefined || value === 0) return;
+                            const x = bar.x;
+                            const topY = bar.y;
+                            const width = bar.width;
+                            let fontSize = Math.min(width * 0.55, 16);
+                            const text = value.toString();
+                            ctx.font = `bold ${fontSize}px sans-serif`;
+                            let metrics = ctx.measureText(text);
+                            while (metrics.width > width * 0.85 && fontSize > 6) {
+                                fontSize -= 0.5;
+                                ctx.font = `bold ${fontSize}px sans-serif`;
+                                metrics = ctx.measureText(text);
+                            }
+                            while (metrics.width < width * 0.35 && fontSize < 16) {
+                                fontSize += 0.5;
+                                ctx.font = `bold ${fontSize}px sans-serif`;
+                                metrics = ctx.measureText(text);
+                                if (metrics.width > width * 0.85) {
+                                    fontSize -= 0.5;
+                                    ctx.font = `bold ${fontSize}px sans-serif`;
+                                    break;
+                                }
+                            }
+                            fontSize = Math.min(Math.max(fontSize, 6), 18);
+                            ctx.font = `bold ${fontSize}px sans-serif`;
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'bottom';
+                            ctx.fillStyle = '#2c3e50';
+                            ctx.fillText(text, x, topY - 4);
+                        });
+                        ctx.restore();
+                    }
+                }]
             });
+
             const extra = document.getElementById('histExtra');
             if (data.over_100 > 0) {
                 extra.innerText = `📌 超过100MB的模组有 ${data.over_100} 个（未在图中显示）`;
@@ -798,7 +2282,6 @@
             }
         }
 
-        // ===== 5. 更新活跃度 =====
         async function loadActivity() {
             const res = await fetch('/api/update_activity');
             const data = await res.json();
@@ -823,7 +2306,7 @@
             });
         }
 
-        // ===== 事件绑定 =====
+        // ---- 1.7 原有事件绑定 ----
         document.getElementById('categoryFilter').addEventListener('change', (e) => {
             currentCategory = e.target.value;
             currentOffset = 0;
@@ -852,13 +2335,1147 @@
             }
         });
 
-        // ===== 初始化 =====
+        // ---- 1.8 初始化原有功能 ----
         fetchStats().then(() => {
             fetchTable();
         });
         loadTrendForecast();
         loadHistogram();
         loadActivity();
+
+        // ================================================================
+        // 2. ★★★ Tooltip 统一管理 ★★★
+        // ================================================================
+
+        function initTooltips() {
+            const tooltipEls = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            tooltipEls.forEach(el => {
+                const instance = bootstrap.Tooltip.getInstance(el);
+                if (instance) instance.dispose();
+            });
+            const tooltipList = [].slice.call(tooltipEls);
+            tooltipList.map(function(el) {
+                return new bootstrap.Tooltip(el, {
+                    delay: { show: 200, hide: 100 },
+                    boundary: 'window'
+                });
+            });
+        }
+
+        function updateCartButtonTooltip(btn, inCart) {
+            const tooltip = bootstrap.Tooltip.getInstance(btn);
+            const title = inCart ? '移除购物车' : '加入购物车';
+            if (tooltip) {
+                btn.setAttribute('data-bs-title', title);
+                tooltip.setContent({ '.tooltip-inner': title });
+                tooltip.update();
+            } else {
+                btn.setAttribute('data-bs-toggle', 'tooltip');
+                btn.setAttribute('data-bs-title', title);
+                new bootstrap.Tooltip(btn);
+            }
+        }
+
+        // ================================================================
+        // 3. ★★★ Steam 搜索功能 ★★★
+        // ================================================================
+
+        const STEAM_BASE = 'https://steamcommunity.com/sharedfiles/filedetails/?id=';
+        const STEAM_PROXY = 'https://api.allorigins.win/raw?url=';
+
+        function extractSteamId(input) {
+            input = input.trim();
+            if (/^\d+$/.test(input)) return input;
+            const match = input.match(/id[=](\d+)/i);
+            if (match) return match[1];
+            const match2 = input.match(/\/(\d{5,})/);
+            if (match2) return match2[1];
+            return null;
+        }
+
+        async function searchSteamMod() {
+            const input = document.getElementById('searchInput').value.trim();
+            if (!input) {
+                showToast('请输入Steam创意工坊ID或URL', 'warning');
+                return;
+            }
+            const id = extractSteamId(input);
+            if (!id) {
+                showToast('无法识别Steam ID，请检查输入', 'danger');
+                return;
+            }
+
+            const resultDiv = document.getElementById('steamResult');
+            resultDiv.innerHTML = `
+                        <div class="text-center py-3">
+                            <div class="spinner-small"></div>
+                            <p class="text-muted mt-2">正在获取模组信息...</p>
+                        </div>
+                    `;
+            resultDiv.classList.add('show');
+
+            try {
+                const url = STEAM_BASE + id;
+                const proxyUrl = STEAM_PROXY + encodeURIComponent(url);
+                const response = await fetch(proxyUrl);
+                if (!response.ok) throw new Error('网络请求失败');
+                const html = await response.text();
+                const modInfo = parseSteamPage(html, id);
+                if (!modInfo.name) {
+                    throw new Error('无法解析模组信息，可能页面结构已变化');
+                }
+                renderSteamResult(modInfo, id);
+            } catch (err) {
+                console.error(err);
+                resultDiv.innerHTML = `
+                            <div class="alert alert-warning mb-0">
+                                <i class="fas fa-exclamation-triangle"></i> 获取失败：${err.message || '未知错误'}
+                                <br><small class="text-muted">提示：您可以手动将模组添加到购物车（输入名称和ID）</small>
+                                <div class="mt-2">
+                                    <input type="text" id="manualName" class="form-control form-control-sm d-inline-block w-auto" placeholder="模组名称" />
+                                    <input type="text" id="manualId" class="form-control form-control-sm d-inline-block w-auto" placeholder="Steam ID" value="${id}" />
+                                    <button class="btn btn-sm btn-success" onclick="addManualToCart()"><i class="fas fa-cart-plus"></i> 手动加入购物车</button>
+                                </div>
+                            </div>
+                        `;
+                resultDiv.classList.add('show');
+            }
+        }
+
+        function parseSteamPage(html, id) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const titleEl = doc.querySelector('.workshopItemTitle');
+            const name = titleEl ? titleEl.textContent.trim() : '未知模组';
+            const descEl = doc.querySelector('.workshopItemDescription');
+            const description = descEl ? descEl.textContent.trim() : '';
+            const imgEl = doc.querySelector('.workshopItemPreviewImageMain img') ||
+                doc.querySelector('.workshopItemPreviewImage img');
+            const image = imgEl ? imgEl.getAttribute('src') : '';
+            const authorEl = doc.querySelector('.creatorsBlock .linkFriend');
+            const author = authorEl ? authorEl.textContent.trim() : '';
+            const dependencies = extractDependencies(description, html);
+            return { name, description, image, author, dependencies };
+        }
+
+        function extractDependencies(description, html) {
+            const deps = [];
+            const patterns = [
+                /(?:required|前置|依赖|需要|requires|dependency|depend|must have|needed)[:：]\s*(\d+)/gi,
+                /(?:required|前置|依赖|需要|requires|dependency|depend|must have|needed)[:：]\s*(?:https?:\/\/[^\s]*id=(\d+))/gi,
+                /(?:required|前置|依赖|需要|requires|dependency|depend|must have|needed)[:：]\s*([^\n,，]+)/gi,
+            ];
+            for (const pattern of patterns) {
+                let match;
+                while ((match = pattern.exec(description)) !== null) {
+                    const val = match[1].trim();
+                    if (/^\d+$/.test(val)) {
+                        deps.push({ id: val, name: '' });
+                    } else if (val.length > 2 && val.length < 80) {
+                        const idMatch = html.match(new RegExp(`(?:id[=])(\\d+).*?${val.replace(/\s+/g, '\\s*')}`, 'i'));
+                        if (idMatch) {
+                            deps.push({ id: idMatch[1], name: val });
+                        } else {
+                            deps.push({ id: '', name: val });
+                        }
+                    }
+                }
+            }
+            const unique = [];
+            const seen = new Set();
+            for (const d of deps) {
+                const key = d.id || d.name;
+                if (key && !seen.has(key)) {
+                    seen.add(key);
+                    unique.push(d);
+                }
+            }
+            const requiredSection = html.match(/Required items[^<]*(<[^>]*>)*([\s\S]*?)(?=<h2|$)/i);
+            if (requiredSection) {
+                const idMatches = requiredSection[0].match(/id=(\d+)/g);
+                if (idMatches) {
+                    for (const m of idMatches) {
+                        const idVal = m.replace('id=', '');
+                        if (idVal && !seen.has(idVal)) {
+                            seen.add(idVal);
+                            unique.push({ id: idVal, name: '' });
+                        }
+                    }
+                }
+            }
+            return unique.slice(0, 10);
+        }
+
+        function renderSteamResult(modInfo, id) {
+            const resultDiv = document.getElementById('steamResult');
+            const depsHtml = modInfo.dependencies && modInfo.dependencies.length > 0 ?
+                `<div class="dependency-list">
+                            <div class="dep-title"><i class="fas fa-link"></i> 前置需求 (${modInfo.dependencies.length})</div>
+                            ${modInfo.dependencies.map((d, idx) => `
+                                <span class="dep-item">
+                                    ${d.id ? `<a href="${STEAM_BASE}${d.id}" target="_blank">${d.name || '模组#'+d.id}</a>` : d.name || '未知前置'}
+                                    ${d.id ? `<button class="dep-remove" onclick="addDepToCart('${d.id}', '${d.name || '前置模组'}')" title="加入购物车">➕</button>` : ''}
+                                </span>
+                            `).join('')}
+                            <div class="add-dep-form">
+                                <input type="text" id="depInput" placeholder="添加前置ID..." />
+                                <button class="btn btn-sm btn-outline-primary" onclick="addDependencyToPreview('${id}')">添加</button>
+                            </div>
+                        </div>` :
+                `<div class="dependency-list">
+                            <div class="dep-title"><i class="fas fa-link"></i> 未检测到前置需求</div>
+                            <div class="add-dep-form">
+                                <input type="text" id="depInput" placeholder="手动添加前置ID..." />
+                                <button class="btn btn-sm btn-outline-primary" onclick="addDependencyToPreview('${id}')">添加</button>
+                            </div>
+                        </div>`;
+
+            resultDiv.innerHTML = `
+                        <div class="mod-preview">
+                            ${modInfo.image ? `<img src="${modInfo.image}" class="preview-img" alt="模组图片" onerror="this.style.display='none'" />` : ''}
+                            <div class="preview-info">
+                                <div class="mod-title">${modInfo.name}</div>
+                                <div class="mod-meta">
+                                    <i class="fab fa-steam"></i> ID: ${id}
+                                    ${modInfo.author ? `&nbsp;|&nbsp;👤 ${modInfo.author}` : ''}
+                                </div>
+                                ${modInfo.description ? `<div class="mod-desc">${modInfo.description.substring(0, 300)}${modInfo.description.length > 300 ? '...' : ''}</div>` : ''}
+                                <div class="preview-actions">
+                                    <button class="btn btn-sm btn-success" onclick="addSteamModToCart('${id}', '${modInfo.name.replace(/'/g, "\\'")}', '')">
+                                        <i class="fas fa-cart-plus"></i> 加入购物车
+                                    </button>
+                                    <a href="${STEAM_BASE}${id}" target="_blank" class="btn btn-sm btn-outline-secondary">
+                                        <i class="fab fa-steam"></i> 打开Steam
+                                    </a>
+                                    <button class="btn btn-sm btn-outline-info" onclick="searchDependencyMods('${id}')">
+                                        <i class="fas fa-search"></i> 搜索前置
+                                    </button>
+                                </div>
+                                ${depsHtml}
+                            </div>
+                        </div>
+                    `;
+            resultDiv.classList.add('show');
+            initTooltips();
+        }
+
+        function addDependencyToPreview(modId) {
+            const input = document.getElementById('depInput');
+            if (!input) return;
+            const depId = input.value.trim();
+            if (!depId) {
+                showToast('请输入前置模组的Steam ID', 'warning');
+                return;
+            }
+            document.getElementById('searchInput').value = depId;
+            searchSteamMod();
+            showToast(`已搜索前置模组: ${depId}`, 'info');
+        }
+
+        function addDepToCart(id, name) {
+            if (!id) {
+                showToast('该前置模组没有Steam ID，无法加入购物车', 'warning');
+                return;
+            }
+            const modName = name || `模组#${id}`;
+            addToCart(id, modName, '');
+        }
+
+        function searchDependencyMods(modId) {
+            const depItems = document.querySelectorAll('.dependency-list .dep-item');
+            if (depItems.length === 0) {
+                showToast('没有可搜索的前置模组', 'info');
+                return;
+            }
+            let count = 0;
+            depItems.forEach(item => {
+                const link = item.querySelector('a');
+                if (link) {
+                    const href = link.getAttribute('href');
+                    const idMatch = href && href.match(/id=(\d+)/);
+                    if (idMatch) {
+                        const id = idMatch[1];
+                        const name = link.textContent.trim();
+                        addToCart(id, name || `模组#${id}`, '');
+                        count++;
+                    }
+                }
+            });
+            renderCart();
+        }
+
+        function addManualToCart() {
+            const nameInput = document.getElementById('manualName');
+            const idInput = document.getElementById('manualId');
+            const name = nameInput ? nameInput.value.trim() : '';
+            const id = idInput ? idInput.value.trim() : '';
+            if (!id) {
+                showToast('请输入Steam ID', 'warning');
+                return;
+            }
+            const finalName = name || `模组#${id}`;
+            addToCart(id, finalName, '');
+            renderCart();
+        }
+
+        document.getElementById('steamSearchBtn').addEventListener('click', searchSteamMod);
+        document.getElementById('searchInput').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const val = e.target.value.trim();
+                if (extractSteamId(val)) {
+                    e.preventDefault();
+                    searchSteamMod();
+                }
+            }
+        });
+
+        // ================================================================
+        // 4. ★★★ 购物车核心功能 ★★★
+        // ================================================================
+
+        let cartItems = [];
+
+        function loadCart() {
+            try {
+                const stored = localStorage.getItem('csl_cart');
+                cartItems = stored ? JSON.parse(stored) : [];
+            } catch (e) { cartItems = []; }
+            updateCartBadge();
+            renderCart();
+            updateFabIcon();
+        }
+
+        function saveCart() {
+            try {
+                localStorage.setItem('csl_cart', JSON.stringify(cartItems));
+            } catch (e) { /* ignore */ }
+            updateCartBadge();
+            updateFabIcon();
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cartBadge');
+            const count = cartItems.length;
+            if (count > 0) {
+                badge.textContent = count;
+                badge.classList.add('show');
+            } else {
+                badge.classList.remove('show');
+            }
+            const totalEl = document.getElementById('cartTotalCount');
+            if (totalEl) totalEl.textContent = count;
+        }
+
+        function updateFabIcon() {
+            const icon = document.querySelector('#cartFab .fab-icon i');
+            const count = cartItems.length;
+            let iconClass = 'fa-shopping-cart';
+            if (count > 50) iconClass = 'fa-truck';
+            else if (count > 30) iconClass = 'fa-truck-moving';
+            else if (count > 20) iconClass = 'fa-car';
+            else iconClass = 'fa-shopping-cart';
+            if (icon) {
+                icon.className = `fas ${iconClass}`;
+            }
+        }
+
+        function isInCart(steamId) {
+            if (!steamId) return false;
+            return cartItems.some(item => item.id === steamId);
+        }
+
+        // ---- 加入购物车 ----
+        function addToCart(id, name, downloadUrl, image, size, category) {
+            if (!id) return;
+            if (cartItems.some(item => item.id === id)) {
+                return;
+            }
+            const prevCount = cartItems.length;
+            cartItems.push({
+                id: id,
+                name: name || `模组#${id}`,
+                download: downloadUrl || '',
+                image: image || '',
+                size: size || 0,
+                category: category || '未分类',
+                addedAt: Date.now()
+            });
+            saveCart();
+            renderCart();
+            updateTableCartButtons();
+            updateGridCartButtons();
+
+            if (prevCount > 0) {
+                const btn = document.querySelector(`.btn-cart-add[data-steam="${id}"]`);
+                if (btn) {
+                    const rect = btn.getBoundingClientRect();
+                    const startX = rect.left + rect.width / 2;
+                    const startY = rect.top + rect.height / 2;
+                    flyBallToCart(startX, startY);
+                } else {
+                    const startX = window.innerWidth / 2;
+                    const startY = window.innerHeight / 2;
+                    flyBallToCart(startX, startY);
+                }
+            } else {
+                updateCartBadge();
+            }
+            updateCartPanelTotals();
+        }
+
+        function removeFromCart(id) {
+            cartItems = cartItems.filter(i => i.id !== id);
+            saveCart();
+            renderCart();
+            updateTableCartButtons();
+            updateGridCartButtons();
+            updateCartPanelTotals();
+            updateCartBadge();
+        }
+
+        function clearCart() {
+            if (cartItems.length === 0) return;
+            if (confirm('确定要清空购物车吗？')) {
+                cartItems = [];
+                saveCart();
+                renderCart();
+                updateTableCartButtons();
+                updateGridCartButtons();
+                updateCartPanelTotals();
+                updateCartBadge();
+                showToast('购物车已清空', 'info');
+            }
+        }
+
+        // ---- 飞行动画 ----
+        function flyBallToCart(startX, startY) {
+            const fab = document.getElementById('cartFab');
+            const fabRect = fab.getBoundingClientRect();
+            const endX = fabRect.left + fabRect.width / 2;
+            const endY = fabRect.top + fabRect.height / 2;
+
+            const ball = document.createElement('div');
+            ball.className = 'fly-ball';
+            ball.style.left = startX + 'px';
+            ball.style.top = startY + 'px';
+            document.body.appendChild(ball);
+
+            const startTime = performance.now();
+            const duration = 500;
+
+            function animateBall(now) {
+                const progress = Math.min((now - startTime) / duration, 1);
+                const ease = t => t * t * (3 - 2 * t);
+                const p = ease(progress);
+                const x = startX + (endX - startX) * p;
+                const y = startY + (endY - startY) * p - 30 * p * (1 - p) * 3;
+                ball.style.transform = `translate(${x - startX}px, ${y - startY}px)`;
+                ball.style.opacity = 1 - progress * 0.8;
+
+                if (progress < 1) {
+                    requestAnimationFrame(animateBall);
+                } else {
+                    ball.remove();
+                    applyShockToFab();
+                }
+            }
+            requestAnimationFrame(animateBall);
+        }
+
+        function applyShockToFab() {
+            const fab = document.getElementById('cartFab');
+            fab.style.transition = 'transform 0.15s cubic-bezier(0.1, 0.8, 0.3, 1)';
+            fab.style.transform = 'translateX(-50%) translate(8px, 6px) scale(1.1)';
+            setTimeout(() => {
+                fab.style.transform = 'translateX(-50%) translate(-4px, -3px) scale(0.95)';
+                setTimeout(() => {
+                    fab.style.transform = 'translateX(-50%) translate(0, 0) scale(1)';
+                    fab.style.transition = 'transform 0.15s ease';
+                }, 100);
+            }, 150);
+            const badge = document.getElementById('cartBadge');
+            if (badge) {
+                badge.style.transition = 'transform 0.1s';
+                badge.style.transform = 'scale(1.6)';
+                setTimeout(() => {
+                    badge.style.transform = 'scale(1)';
+                }, 200);
+            }
+        }
+
+        // ---- 渲染购物车面板 (支持分组折叠) ----
+        function renderCartItem(item) {
+            const imgSrc = item.image || '';
+            return `
+                <div class="cart-item">
+                    <img src="${imgSrc}" class="item-img" alt="${item.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2248%22 height=%2248%22><rect width=%2248%22 height=%2248%22 fill=%22%23e9ecef%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2220%22>📦</text></svg>'">
+                    <div class="item-info">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-id">🆔 ${item.id}</div>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn btn-sm btn-outline-danger" onclick="removeFromCart('${item.id}')"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cartList');
+            const footer = document.getElementById('cartFooter');
+            if (!container) return;
+
+            if (cartItems.length === 0) {
+                container.innerHTML = `
+                            <div class="cart-empty">
+                                <i class="fas fa-cart-plus"></i>
+                                <p>购物车还是空的<br><small>添加模组到购物车以便批量下载</small></p>
+                            </div>
+                        `;
+                if (footer) footer.style.display = 'none';
+                return;
+            }
+
+            // 1. 按类别分组
+            const groups = {};
+            cartItems.forEach(item => {
+                const cat = item.category || '未分类';
+                if (!groups[cat]) groups[cat] = [];
+                groups[cat].push(item);
+            });
+
+            // 2. 对每个类别中的物品按添加时间排序（最新的在前）
+            Object.keys(groups).forEach(cat => {
+                groups[cat].sort((a, b) => b.addedAt - a.addedAt);
+            });
+
+            // 3. 渲染 HTML
+            let html = '';
+            const categoryKeys = Object.keys(groups);
+            categoryKeys.forEach((cat, index) => {
+                const items = groups[cat];
+                const latestItem = items[0];
+                const remainingItems = items.slice(1);
+                const emoji = getCategoryEmoji(cat);
+                const collapseId = `collapse-${cat.replace(/\s/g, '-')}-${Date.now()}`;
+
+                html += `<div class="cart-category-group">`;
+                // 类别头部：Emoji + 名称
+                html += `<div class="d-flex align-items-center mb-2">`;
+                html += `<span class="category-emoji fs-4 me-2" title="${cat}">${emoji}</span>`;
+                html += `<span class="category-name fw-semibold">${cat}</span>`;
+                html += `<span class="ms-auto text-muted small">(${items.length} 个)</span>`;
+                html += `</div>`;
+
+                // 最新物品（始终显示）
+                html += renderCartItem(latestItem);
+
+                // 折叠部分：如果有剩余物品
+                if (remainingItems.length > 0) {
+                    html += `<div class="collapse-trigger text-center py-1" data-bs-toggle="collapse" data-bs-target="#${collapseId}" role="button">`;
+                    html += `<span class="badge bg-light text-dark">还有 ${remainingItems.length} 个物品 <i class="fas fa-chevron-down"></i></span>`;
+                    html += `</div>`;
+                    html += `<div class="collapse" id="${collapseId}">`;
+                    remainingItems.forEach(item => {
+                        html += renderCartItem(item);
+                    });
+                    html += `</div>`;
+                }
+
+                html += `</div>`;
+            });
+
+            container.innerHTML = html;
+
+            // 显示底部操作栏
+            if (footer) {
+                footer.style.display = 'block';
+                updateCartPanelTotals();
+            }
+
+            // 重新初始化所有折叠面板的 tooltip（如果有）
+            initTooltips();
+        }
+
+        // ---- 更新购物车总计信息（智能显示类别总数） ----
+        function updateCartPanelTotals() {
+            const categories = new Set();
+            let totalSize = 0;
+            const categoryCounts = {};
+            cartItems.forEach(item => {
+                if (item.category) {
+                    categories.add(item.category);
+                    categoryCounts[item.category] = (categoryCounts[item.category] || 0) + 1;
+                }
+                if (item.size) totalSize += parseFloat(item.size) || 0;
+            });
+
+            // 更新大小和总数量
+            let sizeStr = '';
+            if (totalSize > 1024) {
+                sizeStr = (totalSize / 1024).toFixed(2) + ' GB';
+            } else {
+                sizeStr = totalSize.toFixed(2) + ' MB';
+            }
+            document.getElementById('cartSizeTotal').textContent = sizeStr;
+            document.getElementById('cartTotalCount').textContent = cartItems.length;
+
+            // 更新类别总数行
+            const categoryTotalRow = document.getElementById('cartCategoryTotalRow');
+            const categoryDetailRow = document.getElementById('cartCategoryDetailRow');
+
+            if (categories.size <= 1) {
+                // 只有一种或零种类别，隐藏类别总数信息
+                categoryTotalRow.style.display = 'none';
+                categoryDetailRow.style.display = 'none';
+            } else {
+                categoryTotalRow.style.display = 'flex';
+                categoryDetailRow.style.display = 'flex';
+                // 构建类别详情 (按类别顺序右对齐)
+                let detailHtml = '';
+                const sortedCats = Object.keys(categoryCounts).sort();
+                sortedCats.forEach(cat => {
+                    const emoji = getCategoryEmoji(cat);
+                    const count = categoryCounts[cat];
+                    detailHtml += `<span class="badge bg-light me-1 mb-1">${emoji} × ${count}</span>`;
+                });
+                categoryDetailRow.innerHTML = detailHtml;
+                document.getElementById('cartCategoryCount').textContent = categories.size;
+            }
+        }
+
+        // ---- 表格购物车按钮 ----
+        function updateTableCartButtons() {
+            document.querySelectorAll('#tableView .btn-cart-add').forEach(btn => {
+                const steamId = btn.getAttribute('data-steam');
+                if (!steamId) return;
+                const inCart = isInCart(steamId);
+                btn.classList.toggle('in-cart', inCart);
+                const icon = btn.querySelector('i');
+                if (icon) {
+                    icon.className = `fas ${inCart ? 'fa-check' : 'fa-cart-plus'}`;
+                }
+                updateCartButtonTooltip(btn, inCart);
+            });
+        }
+
+        // ---- 网格购物车按钮 ----
+        function updateGridCartButtons() {
+            document.querySelectorAll('#gridView .btn-cart-add').forEach(btn => {
+                const steamId = btn.getAttribute('data-steam');
+                if (!steamId) return;
+                const inCart = isInCart(steamId);
+                btn.classList.toggle('in-cart', inCart);
+                const icon = btn.querySelector('i');
+                if (icon) {
+                    icon.className = `fas ${inCart ? 'fa-check' : 'fa-cart-plus'}`;
+                }
+                updateCartButtonTooltip(btn, inCart);
+            });
+        }
+
+        function toggleCartFromTable(btn) {
+            const steamId = btn.getAttribute('data-steam');
+            const name = btn.getAttribute('data-name') || `模组#${steamId}`;
+            const download = btn.getAttribute('data-download') || '';
+            const image = btn.getAttribute('data-image') || '';
+            const size = parseFloat(btn.getAttribute('data-size')) || 0;
+            const category = btn.getAttribute('data-category') || '未分类';
+            if (!steamId) {
+                showToast('该模组没有Steam ID', 'warning');
+                return;
+            }
+            if (isInCart(steamId)) {
+                removeFromCart(steamId);
+            } else {
+                addToCart(steamId, name, download, image, size, category);
+            }
+        }
+
+        function toggleCartFromGrid(btn) {
+            const steamId = btn.getAttribute('data-steam');
+            const name = btn.getAttribute('data-name') || `模组#${steamId}`;
+            const download = btn.getAttribute('data-download') || '';
+            const image = btn.getAttribute('data-image') || '';
+            const size = parseFloat(btn.getAttribute('data-size')) || 0;
+            const category = btn.getAttribute('data-category') || '未分类';
+            if (!steamId) {
+                showToast('该模组没有Steam ID', 'warning');
+                return;
+            }
+            if (isInCart(steamId)) {
+                removeFromCart(steamId);
+            } else {
+                addToCart(steamId, name, download, image, size, category);
+            }
+        }
+
+        function addSteamModToCart(id, name, download) {
+            addToCart(id, name, download, '', 0, 'Steam模组');
+        }
+
+        // ---- 批量下载 ----
+        function batchDownload() {
+            if (cartItems.length === 0) {
+                showToast('购物车为空，无法下载', 'warning');
+                return;
+            }
+            const modal = new bootstrap.Modal(document.getElementById('batchModal'));
+            document.getElementById('batchCount').textContent = cartItems.length;
+            document.getElementById('batchConfirmBtn').disabled = true;
+            document.getElementById('batchConfirmCheck').checked = false;
+            modal.show();
+
+            const check = document.getElementById('batchConfirmCheck');
+            const confirmBtn = document.getElementById('batchConfirmBtn');
+            const handler = () => {
+                confirmBtn.disabled = !check.checked;
+            };
+            check.addEventListener('change', handler);
+            confirmBtn.onclick = function() {
+                if (!check.checked) return;
+                modal.hide();
+                const urls = [];
+                cartItems.forEach(item => {
+                    if (item.download) urls.push(item.download);
+                });
+                if (urls.length === 0) {
+                    showToast('购物车中的模组没有可用的下载链接', 'warning');
+                    return;
+                }
+                urls.forEach((url, index) => {
+                    setTimeout(() => { window.open(url, '_blank'); }, index * 300);
+                });
+                showToast(`正在打开 ${urls.length} 个下载链接...`, 'info');
+                check.removeEventListener('change', handler);
+            };
+        }
+
+        document.getElementById('cartClearBtn')?.addEventListener('click', clearCart);
+        document.getElementById('cartDownloadBtn')?.addEventListener('click', batchDownload);
+
+        // ================================================================
+        // 5. ★★★ 购物车悬浮球 拖拽 ★★★
+        // ================================================================
+
+        let dragState = {
+            isDragging: false,
+            isClick: true,
+            startX: 0,
+            startY: 0,
+            startTime: 0,
+            moved: false,
+            fabStartX: 0,
+            fabStartY: 0
+        };
+
+        const DRAG_THRESHOLD = 8;
+        const CLICK_TIME_THRESHOLD = 500;
+
+        function initCartDragging() {
+            const fab = document.getElementById('cartFab');
+
+            fab.addEventListener('mousedown', onDragStart);
+            document.addEventListener('mousemove', onDragMove);
+            document.addEventListener('mouseup', onDragEnd);
+
+            fab.addEventListener('touchstart', onTouchStart, { passive: false });
+            document.addEventListener('touchmove', onTouchMove, { passive: false });
+            document.addEventListener('touchend', onTouchEnd, { passive: false });
+
+            let lastScrollY = window.scrollY;
+            let followVelocity = 0;
+            let followAnimationId = null;
+
+            window.addEventListener('scroll', function() {
+                if (dragState.isDragging) return;
+                const currentScroll = window.scrollY;
+                const delta = currentScroll - lastScrollY;
+                lastScrollY = currentScroll;
+
+                if (Math.abs(delta) > 2) {
+                    followVelocity = delta * 0.4;
+                } else {
+                    followVelocity *= 0.9;
+                }
+
+                if (followAnimationId) cancelAnimationFrame(followAnimationId);
+                let lastTime = null;
+
+                function step(time) {
+                    if (lastTime === null) lastTime = time;
+                    const dt = Math.min((time - lastTime) / 16, 3);
+                    lastTime = time;
+                    const currentTop = parseFloat(fab.style.top) || window.innerHeight - 100;
+                    let newTop = currentTop + followVelocity * dt;
+                    const maxTop = window.innerHeight - fab.offsetHeight - 10;
+                    const minTop = 10;
+                    newTop = Math.min(Math.max(newTop, minTop), maxTop);
+                    fab.style.top = newTop + 'px';
+
+                    if (Math.abs(followVelocity) > 0.5) {
+                        followVelocity *= 0.95;
+                        followAnimationId = requestAnimationFrame(step);
+                    } else {
+                        followVelocity = 0;
+                        followAnimationId = null;
+                    }
+                }
+                if (Math.abs(followVelocity) > 0.5) {
+                    followAnimationId = requestAnimationFrame(step);
+                }
+            });
+        }
+
+        function onDragStart(e) {
+            const fab = document.getElementById('cartFab');
+            const rect = fab.getBoundingClientRect();
+
+            dragState.startX = e.clientX;
+            dragState.startY = e.clientY;
+            dragState.startTime = Date.now();
+            dragState.moved = false;
+            dragState.isDragging = false;
+            dragState.isClick = true;
+
+            const computedStyle = getComputedStyle(fab);
+            dragState.fabStartX = parseFloat(computedStyle.left) || rect.left;
+            dragState.fabStartY = parseFloat(computedStyle.top) || rect.top;
+
+            fab.style.transition = 'none';
+            fab.style.left = dragState.fabStartX + 'px';
+            fab.style.top = dragState.fabStartY + 'px';
+            fab.style.transform = 'none';
+
+            e.preventDefault();
+        }
+
+        function onDragMove(e) {
+            if (dragState.startX === 0 && dragState.startY === 0) return;
+
+            const dx = e.clientX - dragState.startX;
+            const dy = e.clientY - dragState.startY;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist > DRAG_THRESHOLD) {
+                dragState.moved = true;
+                dragState.isDragging = true;
+                dragState.isClick = false;
+            }
+
+            if (dragState.isDragging) {
+                const fab = document.getElementById('cartFab');
+                let newLeft = dragState.fabStartX + dx;
+                let newTop = dragState.fabStartY + dy;
+                const maxX = window.innerWidth - fab.offsetWidth;
+                const maxY = window.innerHeight - fab.offsetHeight;
+                newLeft = Math.min(Math.max(newLeft, 0), maxX);
+                newTop = Math.min(Math.max(newTop, 0), maxY);
+                fab.style.left = newLeft + 'px';
+                fab.style.top = newTop + 'px';
+            }
+
+            e.preventDefault();
+        }
+
+        function onDragEnd(e) {
+            const fab = document.getElementById('cartFab');
+            const dt = Date.now() - dragState.startTime;
+
+            const isClick = !dragState.moved && dt < CLICK_TIME_THRESHOLD;
+
+            if (isClick) {
+                toggleCartOffcanvas();
+            }
+
+            fab.style.transition = 'transform 0.15s ease';
+
+            dragState.isDragging = false;
+            dragState.isClick = false;
+            dragState.startX = 0;
+            dragState.startY = 0;
+            dragState.moved = false;
+        }
+
+        function onTouchStart(e) {
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            onDragStart(mouseEvent);
+        }
+
+        function onTouchMove(e) {
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            onDragMove(mouseEvent);
+        }
+
+        function onTouchEnd(e) {
+            onDragEnd(e);
+        }
+
+        function toggleCartOffcanvas() {
+            const offcanvas = bootstrap.Offcanvas.getInstance(document.getElementById('cartOffcanvas'));
+            if (offcanvas) {
+                offcanvas.toggle();
+            } else {
+                const newOffcanvas = new bootstrap.Offcanvas(document.getElementById('cartOffcanvas'));
+                newOffcanvas.toggle();
+            }
+        }
+
+        // ================================================================
+        // 6. ★★★ 购物车侧边栏调整大小 ★★★
+        // ================================================================
+
+        let resizeState = {
+            isResizing: false,
+            startX: 0,
+            startWidth: 0
+        };
+
+        function initResize() {
+            const offcanvas = document.getElementById('cartOffcanvas');
+            // 检查是否已经存在手柄
+            if (document.getElementById('resize-handle')) return;
+
+            const dragHandle = document.createElement('div');
+            dragHandle.id = 'resize-handle';
+            offcanvas.prepend(dragHandle);
+
+            dragHandle.addEventListener('mousedown', (e) => {
+                resizeState.isResizing = true;
+                resizeState.startX = e.clientX;
+                resizeState.startWidth = offcanvas.offsetWidth;
+                document.body.style.cursor = 'ew-resize';
+                document.body.style.userSelect = 'none';
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!resizeState.isResizing) return;
+                const delta = resizeState.startX - e.clientX;
+                let newWidth = resizeState.startWidth + delta;
+                const maxWidth = window.innerWidth * 0.92;
+                const minWidth = 300;
+                newWidth = Math.min(Math.max(newWidth, minWidth), maxWidth);
+                offcanvas.style.width = newWidth + 'px';
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (resizeState.isResizing) {
+                    resizeState.isResizing = false;
+                    document.body.style.cursor = '';
+                    document.body.style.userSelect = '';
+                }
+            });
+        }
+
+        // ================================================================
+        // 7. ★★★ 视图切换滑块 (优化后：圆润卡片风格) ★★★
+        // ================================================================
+
+        let sliderValue = 0;
+        let isSliderDragging = false;
+        let sliderTooltipTimer = null;
+
+        function initViewSlider() {
+            const thumb = document.getElementById('sliderThumb');
+            const track = document.getElementById('sliderTrack');
+            const tooltip = document.getElementById('sliderTooltip');
+
+            if (!thumb || !track) return;
+
+            updateSliderPosition(0);
+            setView('table');
+
+            thumb.addEventListener('mousedown', onSliderStart);
+            document.addEventListener('mousemove', onSliderMove);
+            document.addEventListener('mouseup', onSliderEnd);
+
+            thumb.addEventListener('touchstart', onSliderTouchStart, { passive: false });
+            document.addEventListener('touchmove', onSliderTouchMove, { passive: false });
+            document.addEventListener('touchend', onSliderTouchEnd, { passive: false });
+
+            track.addEventListener('click', (e) => {
+                if (isSliderDragging) return;
+                const rect = track.getBoundingClientRect();
+                const pct = Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1);
+                const val = Math.round(pct * 100);
+                updateSliderPosition(val);
+                applySliderValue(val);
+            });
+
+            window.addEventListener('resize', () => {
+                updateSliderPosition(sliderValue);
+            });
+        }
+
+        function onSliderStart(e) {
+            isSliderDragging = true;
+            document.getElementById('sliderThumb').classList.add('dragging');
+            showSliderTooltip();
+            e.preventDefault();
+        }
+
+        function onSliderMove(e) {
+            if (!isSliderDragging) return;
+            const track = document.getElementById('sliderTrack');
+            const rect = track.getBoundingClientRect();
+            let pct = (e.clientX - rect.left) / rect.width;
+            pct = Math.min(Math.max(pct, 0), 1);
+            const val = Math.round(pct * 100);
+            updateSliderPosition(val);
+            updateSliderTooltipText(val);
+            e.preventDefault();
+        }
+
+        function onSliderEnd(e) {
+            if (!isSliderDragging) return;
+            isSliderDragging = false;
+            document.getElementById('sliderThumb').classList.remove('dragging');
+            const val = Math.round(sliderValue);
+            applySliderValue(val);
+            clearTimeout(sliderTooltipTimer);
+            sliderTooltipTimer = setTimeout(() => {
+                hideSliderTooltip();
+            }, 600);
+            e.preventDefault();
+        }
+
+        function onSliderTouchStart(e) {
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            onSliderStart(mouseEvent);
+        }
+
+        function onSliderTouchMove(e) {
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            onSliderMove(mouseEvent);
+        }
+
+        function onSliderTouchEnd(e) {
+            onSliderEnd(e);
+        }
+
+        function updateSliderPosition(val) {
+            sliderValue = Math.min(Math.max(val, 0), 100);
+            const thumb = document.getElementById('sliderThumb');
+            const fill = document.getElementById('sliderFill');
+            if (thumb) {
+                thumb.style.left = sliderValue + '%';
+            }
+            if (fill) {
+                fill.style.width = sliderValue + '%';
+            }
+            document.getElementById('sliderIconLeft').classList.toggle('active', sliderValue < 50);
+            document.getElementById('sliderIconRight').classList.toggle('active', sliderValue >= 50);
+        }
+
+        function applySliderValue(val) {
+            const view = val < 50 ? 'table' : 'grid';
+            setView(view);
+        }
+
+        function showSliderTooltip() {
+            const tooltip = document.getElementById('sliderTooltip');
+            if (tooltip) {
+                tooltip.classList.add('show');
+                updateSliderTooltipText(sliderValue);
+            }
+        }
+
+        function hideSliderTooltip() {
+            const tooltip = document.getElementById('sliderTooltip');
+            if (tooltip) {
+                tooltip.classList.remove('show');
+            }
+        }
+
+        function updateSliderTooltipText(val) {
+            const tooltip = document.getElementById('sliderTooltip');
+            if (tooltip) {
+                const viewName = val < 50 ? '表格视图' : '图片视图';
+                tooltip.textContent = viewName;
+            }
+        }
+
+        // ================================================================
+        // 8. ★★★ Toast 提示 ★★★
+        // ================================================================
+
+        function showToast(message, type = 'info') {
+            const toastEl = document.getElementById('liveToast');
+            const toastBody = document.getElementById('toastBody');
+            const toastTitle = document.getElementById('toastTitle');
+            if (!toastEl || !toastBody) return;
+            const colors = {
+                info: { bg: '#d1ecf1', text: '#0c5460', icon: 'info-circle' },
+                success: { bg: '#d4edda', text: '#155724', icon: 'check-circle' },
+                warning: { bg: '#fff3cd', text: '#856404', icon: 'exclamation-triangle' },
+                danger: { bg: '#f8d7da', text: '#721c24', icon: 'times-circle' }
+            };
+            const style = colors[type] || colors.info;
+            toastTitle.textContent = type.charAt(0).toUpperCase() + type.slice(1);
+            toastBody.innerHTML = `<i class="fas fa-${style.icon}"></i> ${message}`;
+            const header = toastEl.querySelector('.toast-header');
+            if (header) {
+                header.style.background = style.bg;
+                header.style.color = style.text;
+            }
+            const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+            toast.show();
+        }
+
+        // ================================================================
+        // 9. 初始化 & 暴露全局
+        // ================================================================
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCart();
+            setTimeout(() => {
+                updateTableCartButtons();
+                updateGridCartButtons();
+            }, 500);
+            const fab = document.getElementById('cartFab');
+            fab.style.left = '50%';
+            fab.style.transform = 'translateX(-50%)';
+            fab.style.top = (window.innerHeight - 100) + 'px';
+            // 在 offcanvas 显示时初始化调整大小
+            document.getElementById('cartOffcanvas').addEventListener('shown.bs.offcanvas', initResize);
+        });
+
+        window.toggleCartFromTable = toggleCartFromTable;
+        window.toggleCartFromGrid = toggleCartFromGrid;
+        window.addToCart = addToCart;
+        window.removeFromCart = removeFromCart;
+        window.addSteamModToCart = addSteamModToCart;
+        window.addDepToCart = addDepToCart;
+        window.searchDependencyMods = searchDependencyMods;
+        window.addManualToCart = addManualToCart;
+        window.addDependencyToPreview = addDependencyToPreview;
+        window.clearCart = clearCart;
+        window.batchDownload = batchDownload;
+        window.isInCart = isInCart;
+        window.initTooltips = initTooltips;
+
+        console.log('✅ 城市天际线模组下载站已加载完成');
+        console.log('🛒 购物车已升级：支持分组折叠、调整大小、智能显示类别总数');
+        console.log('📊 柱状图已增强：每个柱子上方显示对应数值，字体自适应柱宽');
+        console.log('🖼️ 视图切换滑块已优化：圆润卡片风格，与整体设计更协调');
+        console.log('🔍 图片视图下筛选下拉选项自动增加 Emoji');
     </script>
 
 </body>
